@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex justify-between items-center py-2.5 ">
+    <header className="flex justify-between items-center py-5 border-solid border-b border-black">
       {/* left side of navigation */}
       <div className="left-nav flex gap-7 items-center">
         {user ? (
@@ -42,7 +42,7 @@ const Navbar = () => {
         <Link to="/" className="hover:text-blue-600 ">
           All Recipes
         </Link>
-        <Link to="/add" className="hover:text-blue-600">
+        <Link to="/add-recipe" className="hover:text-blue-600">
           Add Recipe
         </Link>
         <Link to="/bookmarked" className="hover:text-blue-600">

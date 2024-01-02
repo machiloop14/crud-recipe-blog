@@ -18,8 +18,8 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="mt-6">
-      <h1 className="text-3xl">{props.heading}</h1>
+    <div>
+      <h1 className="text-4xl">{props.heading}</h1>
       <div className="flex flex-col items-center mt-10">
         <div className="flex justify-center gap-2">
           {props.warningMessage && (
@@ -33,7 +33,7 @@ const Login = (props: Props) => {
         </div>
         <button
           onClick={signInWithGoogle}
-          className="bg-gray-400 text-white p-2 mt-3"
+          className="bg-gray-500 text-white p-2 mt-3"
         >
           Sign in with Google
         </button>

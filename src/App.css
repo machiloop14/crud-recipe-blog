@@ -1,0 +1,8 @@
+form {
+  max-width: 500px;
+}
+
+form .form__field {
+  grid-template-columns: 140px auto;
+  gap: 8px;
+}

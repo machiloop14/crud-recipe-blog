@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login.tsx";
 import AllRecipes from "./components/AllRecipes.tsx";
+import AddRecipe from "./components/AddRecipe.tsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -13,9 +14,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="w-11/12 mx-auto py-5 text-gray-500">
+        <div className="w-11/12 mx-auto text-gray-500">
           <Navbar />
-          <main>
+          <main className="my-8">
             <Routes>
               <Route path="/" element={<AllRecipes />} />
               <Route
@@ -23,10 +24,11 @@ function App() {
                 element={
                   <Login
                     heading="Login"
-                    warningMessage="You have to login first"
+                    // warningMessage="You have to login first"
                   />
                 }
               />
+              <Route path="/add-recipe" element={<AddRecipe />} />
             </Routes>
           </main>
         </div>
