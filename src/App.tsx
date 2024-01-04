@@ -4,9 +4,9 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Navbar from "./components/Navbar.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login.tsx";
-import AllRecipes from "./components/AllRecipes.tsx";
-import AddRecipe from "./components/AddRecipe.tsx";
+import Login from "./pages/Login.tsx";
+import AllRecipes from "./pages/AllRecipes.tsx";
+import AddRecipe from "./pages/AddRecipe.tsx";
 
 function App() {
   const [count, setCount] = useState(0);

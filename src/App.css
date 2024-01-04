@@ -6,3 +6,11 @@ form .form__field {
   grid-template-columns: 140px auto;
   gap: 8px;
 }
+
+.recipe-item {
+  grid-template-columns: 2fr 5fr max-content;
+}
+
+::placeholder {
+  font-style: italic;
+}

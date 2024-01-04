@@ -1,7 +1,9 @@
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
-import { RecipeItem } from "./RecipeItem";
+import { RecipeItem } from "../components/RecipeItem";
+import { SortComponent } from "../components/SortComponent";
+import { SearchComponent } from "../components/SearchComponent";
 
 export interface Recipe {
   title: string;
@@ -33,10 +35,16 @@ const AllRecipes = () => {
   }, []);
 
   return (
-    <div>
-      {recipesList?.map((recipe) => (
-        <RecipeItem key={recipe.id} recipe={recipe} />
-      ))}
+    <div className="wrapper">
+      <div className="flex justify-between max-w-3xl mb-20">
+        <SortComponent />
+        <SearchComponent />
+      </div>
+      <div className="flex flex-col gap-6">
+        {recipesList?.map((recipe) => (
+          <RecipeItem key={recipe.id} recipe={recipe} />
+        ))}
+      </div>
     </div>
   );
 };
