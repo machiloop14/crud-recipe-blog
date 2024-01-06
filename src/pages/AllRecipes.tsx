@@ -1,4 +1,4 @@
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, orderBy } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
 import { RecipeItem } from "../components/RecipeItem";
@@ -20,11 +20,13 @@ export interface Recipe {
 const AllRecipes = () => {
   const [recipesList, setRecipesList] = useState<Recipe[] | null>(null);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[] | null>(null);
+  const [sortOption, setSortOption] = useState("createdAt");
 
   const recipesRef = collection(db, "recipe");
+  const orderedQuery = query(recipesRef, orderBy(`${sortOption}`, "desc"));
 
   const getRecipes = async () => {
-    const data = await getDocs(recipesRef);
+    const data = await getDocs(orderedQuery);
     console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setRecipesList(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
@@ -36,7 +38,7 @@ const AllRecipes = () => {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  }, [sortOption]);
 
   const handleSearch = (searchTerm: string) => {
     const filteredResults = recipesList?.filter(
@@ -48,10 +50,15 @@ const AllRecipes = () => {
     setFilteredRecipes(filteredResults as Recipe[]);
   };
 
+  const handleSort = (sortOption: string) => {
+    setSortOption(sortOption);
+    console.log(sortOption);
+  };
+
   return (
     <div className="wrapper">
       <div className="flex justify-between max-w-3xl mb-20">
-        <SortComponent />
+        <SortComponent onSort={handleSort} />
         <SearchComponent onSearch={handleSearch} />
       </div>
       <div className="flex flex-col gap-6">

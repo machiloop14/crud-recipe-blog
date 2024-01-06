@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface Props {
-  onSearch: (params: any) => any;
+  onSearch: (params: string) => void;
 }
 
 export const SearchComponent = ({ onSearch }: Props) => {
