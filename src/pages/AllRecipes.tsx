@@ -19,6 +19,7 @@ export interface Recipe {
 
 const AllRecipes = () => {
   const [recipesList, setRecipesList] = useState<Recipe[] | null>(null);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[] | null>(null);
 
   const recipesRef = collection(db, "recipe");
 
@@ -28,20 +29,33 @@ const AllRecipes = () => {
     setRecipesList(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
     );
+    setFilteredRecipes(
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
+    );
   };
 
   useEffect(() => {
     getRecipes();
   }, []);
 
+  const handleSearch = (searchTerm: string) => {
+    const filteredResults = recipesList?.filter(
+      (recipe) =>
+        recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        recipe.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredRecipes(filteredResults as Recipe[]);
+  };
+
   return (
     <div className="wrapper">
       <div className="flex justify-between max-w-3xl mb-20">
         <SortComponent />
-        <SearchComponent />
+        <SearchComponent onSearch={handleSearch} />
       </div>
       <div className="flex flex-col gap-6">
-        {recipesList?.map((recipe) => (
+        {filteredRecipes?.map((recipe) => (
           <RecipeItem key={recipe.id} recipe={recipe} />
         ))}
       </div>
