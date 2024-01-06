@@ -2,6 +2,7 @@ import { Recipe as IRecipe } from "../pages/AllRecipes";
 import { DeleteButton } from "../components/DeleteButton";
 import { EditButton } from "./EditButton";
 import { BookmarkButton } from "./BookmarkButton";
+import { Link } from "react-router-dom";
 
 interface Props {
   recipe: IRecipe;
@@ -9,6 +10,10 @@ interface Props {
 
 export const RecipeItem = (props: Props) => {
   const { recipe } = props;
+
+  if (!recipe) {
+    return <div>No recipe data available.</div>;
+  }
 
   const day = recipe.createdAt.toDate().getDate().toString().padStart(2, "0");
   const month = (recipe.createdAt.toDate().getMonth() + 1)
@@ -29,7 +34,9 @@ export const RecipeItem = (props: Props) => {
         </div>
       </div>
       <div>
-        <h1 className="text-xl mb-2">{recipe.title.toUpperCase()}</h1>
+        <Link to={`recipe/${recipe.id}`} className="text-xl mb-2">
+          {recipe.title.toUpperCase()}
+        </Link>
         <p className="text-sm">{recipe.description}</p>
       </div>
       <div>

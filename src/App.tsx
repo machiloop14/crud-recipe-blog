@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.tsx";
 import AllRecipes from "./pages/AllRecipes.tsx";
 import AddRecipe from "./pages/AddRecipe.tsx";
+import { RecipeDetails } from "./components/RecipeDetails.tsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,6 +30,7 @@ function App() {
                 }
               />
               <Route path="/add-recipe" element={<AddRecipe />} />
+              <Route path="/recipe/:id" element={<RecipeDetails />} />
             </Routes>
           </main>
         </div>
