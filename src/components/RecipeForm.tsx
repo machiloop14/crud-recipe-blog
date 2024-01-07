@@ -38,23 +38,24 @@ export const RecipeForm = () => {
 
   const recipesRef = collection(db, "recipe");
 
-  //   const onCreateRecipe = async (data: RecipeFormData) => {
-  //     await addDoc(recipesRef, {
-  //       title: data.title,
-  //       imageUrl: data.imageUrl,
-  //       description: data.description,
-  //       ingredients: data.ingredients,
-  //       instruction: data.instruction,
-  //       author: user?.displayName,
-  //       id: user?.uid,
-  //     });
-  //
-  //    navigate("/")
-  //   };
+  // const onCreateRecipe = async (data: RecipeFormData) => {
+  //   await addDoc(recipesRef, {
+  //     title: data.title.toLowerCase(),
+  //     imageUrl: data.imageUrl,
+  //     description: data.description,
+  //     ingredients: data.ingredients,
+  //     instruction: data.instruction,
+  //     author: user?.displayName,
+  //     id: user?.uid,
+  //   });
+
+  //   navigate("/");
+  // };
 
   const onCreateRecipe = async (data: RecipeFormData) => {
     await addDoc(recipesRef, {
       ...data,
+      title: data.title.toLowerCase(),
       author: user?.displayName,
       userId: user?.uid,
       createdAt: serverTimestamp(),

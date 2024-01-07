@@ -21,9 +21,10 @@ const AllRecipes = () => {
   const [recipesList, setRecipesList] = useState<Recipe[] | null>(null);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[] | null>(null);
   const [sortOption, setSortOption] = useState("createdAt");
+  const sortOrder = sortOption == "createdAt" ? "desc" : "asc";
 
   const recipesRef = collection(db, "recipe");
-  const orderedQuery = query(recipesRef, orderBy(`${sortOption}`, "desc"));
+  const orderedQuery = query(recipesRef, orderBy(`${sortOption}`, sortOrder));
 
   const getRecipes = async () => {
     const data = await getDocs(orderedQuery);
