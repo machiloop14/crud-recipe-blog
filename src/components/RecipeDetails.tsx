@@ -8,12 +8,15 @@ import { BookmarkButton } from "./BookmarkButton";
 import { EditButton } from "./EditButton";
 import { DeleteButton } from "./DeleteButton";
 import useConvertTimestamp from "../customHooks/useConvertTimestamp";
+import { useDefaultImage } from "../customHooks/useDefaultImage";
 
 export const RecipeDetails = () => {
   const { id } = useParams<{ id: string }>();
 
   const [recipeDetails, setRecipeDetails] = useState<Recipe | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { handleImageError } = useDefaultImage();
 
   const docRef = doc(db, "recipe", id);
 
@@ -66,6 +69,7 @@ export const RecipeDetails = () => {
               src={recipeDetails?.imageUrl}
               alt={recipeDetails?.title}
               className="w-full h-full object-cover"
+              onError={handleImageError}
             />
           </div>
           <div className="flex flex-col">

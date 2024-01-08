@@ -4,6 +4,7 @@ import { EditButton } from "./EditButton";
 import { BookmarkButton } from "./BookmarkButton";
 import { Link } from "react-router-dom";
 import useConvertTimestamp from "../customHooks/useConvertTimestamp";
+import { useDefaultImage } from "../customHooks/useDefaultImage";
 
 interface Props {
   recipe: IRecipe;
@@ -12,6 +13,7 @@ interface Props {
 export const RecipeItem = (props: Props) => {
   const { recipe } = props;
   const createdAtFormatted = useConvertTimestamp(recipe?.createdAt);
+  const { handleImageError } = useDefaultImage();
 
   if (!recipe) {
     return <div>No recipe data available.</div>;
@@ -39,6 +41,7 @@ export const RecipeItem = (props: Props) => {
           src={recipe.imageUrl}
           alt={recipe.title}
           className="w-40 h-full object-cover"
+          onError={handleImageError}
         />
       </div>
       <div></div>
