@@ -2,6 +2,8 @@ import { auth, provider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
+import "react-toastify/dist/ReactToastify.css";
+import useNotification from "../customHooks/useNotification";
 
 interface Props {
   heading?: string;
@@ -10,10 +12,12 @@ interface Props {
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
+  const { notify } = useNotification();
 
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
+    notify("Login successful", { type: "success" });
     navigate("/");
   };
 

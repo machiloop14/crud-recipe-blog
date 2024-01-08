@@ -9,9 +9,9 @@ import AllRecipes from "./pages/AllRecipes.tsx";
 import AddRecipe from "./pages/AddRecipe.tsx";
 import { RecipeDetails } from "./components/RecipeDetails.tsx";
 
-function App() {
-  const [count, setCount] = useState(0);
+import { ToastContainer } from "react-toastify";
 
+function App() {
   return (
     <>
       <BrowserRouter>
@@ -33,6 +33,7 @@ function App() {
               <Route path="/recipe/:id" element={<RecipeDetails />} />
             </Routes>
           </main>
+          <ToastContainer />
         </div>
       </BrowserRouter>
     </>

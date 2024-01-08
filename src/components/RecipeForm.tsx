@@ -7,6 +7,7 @@ import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import Login from "../pages/Login";
+import useNotification from "../customHooks/useNotification";
 
 interface RecipeFormData {
   title: string;
@@ -19,6 +20,7 @@ interface RecipeFormData {
 export const RecipeForm = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const { notify } = useNotification();
 
   const schema = yup.object().shape({
     title: yup.string().required("You must add a title."),
@@ -61,6 +63,7 @@ export const RecipeForm = () => {
       createdAt: serverTimestamp(),
     });
 
+    notify("New recipe added", { type: "success" });
     navigate("/");
   };
 

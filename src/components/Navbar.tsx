@@ -3,12 +3,16 @@ import * as MdIcons from "react-icons/md";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
+import useNotification from "../customHooks/useNotification";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
+  const { notify } = useNotification();
 
   const signUserOut = async () => {
     await signOut(auth);
+
+    notify("Logout successful", { type: "success" });
   };
 
   return (
