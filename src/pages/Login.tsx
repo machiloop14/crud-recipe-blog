@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
 
 interface Props {
-  heading: string;
+  heading?: string;
   warningMessage?: string;
 }
 

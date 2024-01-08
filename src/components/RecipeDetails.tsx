@@ -3,8 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Recipe } from "../pages/AllRecipes";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { RecipeItem } from "./RecipeItem";
-import RingLoader from "react-spinners/RingLoader";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { BookmarkButton } from "./BookmarkButton";
 import { EditButton } from "./EditButton";
@@ -62,31 +60,43 @@ export const RecipeDetails = () => {
           <p className="text-2xl">Loading...</p>
         </div>
       ) : (
-        <div className="recipe-item max-w-3xl py-4 border-b-2 grid border-gray-400 gap-4 ">
-          <div className="flex gap-2 flex-col items-end">
-            <p>by {recipeDetails?.author}</p>
-            <p>{createdAtFormatted}</p>
-            <div className="flex gap-2">
-              <EditButton />
-              <BookmarkButton />
-              <DeleteButton />
-            </div>
-          </div>
-          <div>
-            <Link to={`recipe/${recipeDetails?.id}`} className="text-xl mb-2">
-              {recipeDetails?.title.toUpperCase()}
-            </Link>
-            <p className="text-sm">{recipeDetails?.description}</p>
-          </div>
-          <div>
+        <div className="recipe-details max-w-3xl py-4 flex flex-col  gap-4 ">
+          <div className="border-b-2 border-gray-400 py-4">
             <img
               src={recipeDetails?.imageUrl}
               alt={recipeDetails?.title}
-              className="w-40 h-full object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
-          <div></div>
-          <div></div>
+          <div className="flex flex-col">
+            <div className="flex gap-6 items-end ">
+              <p>by {recipeDetails?.author}</p>
+              <p>{createdAtFormatted}</p>
+              <div className="flex gap-2">
+                <EditButton />
+                <BookmarkButton />
+                <DeleteButton />
+              </div>
+            </div>
+            <div className="mt-8">
+              <Link to={`recipe/${recipeDetails?.id}`} className="text-xl mb-2">
+                {recipeDetails?.title.toUpperCase()}
+              </Link>
+              <p className="text-sm">{recipeDetails?.description}</p>
+            </div>
+            <div className="mt-12">
+              <h1 className="text-xl mb-2 italic">Ingredients</h1>
+              <p className="whitespace-pre-line">
+                {recipeDetails?.ingredients}
+              </p>
+            </div>
+            <div className="mt-12">
+              <h1 className="text-xl mb-2 italic">Instructions</h1>
+              <p className="whitespace-pre-line">
+                {recipeDetails?.instruction}
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>

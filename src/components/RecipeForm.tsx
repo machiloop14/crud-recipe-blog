@@ -135,7 +135,7 @@ export const RecipeForm = () => {
             </div>
           </div>
 
-          <button className="flex items-center gap-1">
+          <button className="flex items-center gap-1 cursor-not-allowed">
             <MdIcons.MdAddCircle
               style={{ color: "black", width: "30px", height: "30px" }}
             />
