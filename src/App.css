@@ -14,3 +14,8 @@ form .form__field {
 ::placeholder {
   font-style: italic;
 }
+
+header a.active {
+  font-weight: bold;
+  color: rgb(37, 99, 235);
+}

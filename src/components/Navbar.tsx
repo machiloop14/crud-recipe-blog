@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -43,18 +44,18 @@ const Navbar = () => {
 
       {/* right side of navigation */}
       <div className="right-nav flex gap-4 items-center ">
-        <Link to="/" className="hover:text-blue-600 ">
+        <NavLink to="/" className="hover:text-blue-600 ">
           All Recipes
-        </Link>
-        <Link to="/add-recipe" className="hover:text-blue-600">
+        </NavLink>
+        <NavLink to="/add-recipe" className="hover:text-blue-600">
           Add Recipe
-        </Link>
-        <Link to="/bookmarked" className="hover:text-blue-600">
+        </NavLink>
+        <NavLink to="/bookmarked" className="hover:text-blue-600">
           Bookmarked Recipes
-        </Link>
-        <Link to="/deleted" className="hover:text-blue-600">
+        </NavLink>
+        <NavLink to="/deleted" className="hover:text-blue-600">
           Deleted Recipes
-        </Link>
+        </NavLink>
       </div>
     </header>
   );
