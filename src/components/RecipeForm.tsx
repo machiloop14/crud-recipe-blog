@@ -1,5 +1,5 @@
 import * as MdIcons from "react-icons/md";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -15,6 +15,9 @@ interface RecipeFormData {
   description: string;
   ingredients: string;
   instruction: string;
+  instructions: {
+    addedInstruction: string;
+  }[];
 }
 
 export const RecipeForm = () => {
@@ -27,15 +30,30 @@ export const RecipeForm = () => {
     imageUrl: yup.string(),
     description: yup.string().required("You must add a description"),
     ingredients: yup.string().required("You must add a list of ingredients"),
-    instruction: yup.string().required("You must add at least one instruction"),
+    instruction: yup
+      .string()
+      .required("Required field. You must add at least one instruction"),
+    instructions: yup.array().of(
+      yup.object({
+        addedInstruction: yup
+          .string()
+          .required("Cannot be blank. Click remove button instead"),
+      })
+    ),
   });
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<RecipeFormData>({
     resolver: yupResolver(schema),
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "instructions",
   });
 
   const recipesRef = collection(db, "recipe");
@@ -138,7 +156,46 @@ export const RecipeForm = () => {
             </div>
           </div>
 
-          <button className="flex items-center gap-1 cursor-not-allowed">
+          <>
+            {fields.map((field, index) => (
+              <div className="form__field grid" key={field.id}>
+                <label htmlFor={`recipeInstruction${index}`}>
+                  {`instruction ${index + 2}`}:
+                </label>
+                <div>
+                  <textarea
+                    {...register(
+                      `instructions.${index}.addedInstruction` as const
+                    )}
+                    id={`recipeInstruction${index}`}
+                    className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-14 resize-none w-full"
+                  ></textarea>
+                  <p className="text-red-600">
+                    {errors.instructions &&
+                      errors.instructions[index] &&
+                      errors.instructions[index]?.addedInstruction?.message}
+                  </p>
+                  <button
+                    type="button"
+                    className="text-blue-600 hover:border-blue-600 hover:border-b-2"
+                    onClick={() => remove(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+
+          <button
+            className="flex items-center gap-1"
+            type="button"
+            onClick={() => {
+              console.log("again");
+              append({ addedInstruction: "" });
+              console.log(fields);
+            }} // Pass an empty string or any default value
+          >
             <MdIcons.MdAddCircle
               style={{ color: "black", width: "30px", height: "30px" }}
             />
