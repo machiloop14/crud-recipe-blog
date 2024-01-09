@@ -55,6 +55,8 @@ export const RecipeDetails = () => {
 
   const createdAtFormatted = useConvertTimestamp(recipeDetails?.createdAt);
 
+  console.log(recipeDetails);
+
   return (
     <div>
       {isLoading ? (
@@ -96,9 +98,14 @@ export const RecipeDetails = () => {
             </div>
             <div className="mt-12">
               <h1 className="text-xl mb-2 italic">Instructions</h1>
-              <p className="whitespace-pre-line">
-                {recipeDetails?.instruction}
-              </p>
+              <div className="flex gap-2 flex-col mt-2">
+                <p className="whitespace-pre-line">
+                  {recipeDetails?.instruction}
+                </p>
+                {recipeDetails?.instructions?.map((instruction, index) => (
+                  <p key={index}>{instruction.addedInstruction}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
