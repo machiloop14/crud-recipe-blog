@@ -26,7 +26,11 @@ export const RecipeDetails = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setRecipeDetails(docSnap.data() as Recipe);
+        const recipeData = docSnap.data() as Recipe;
+        setRecipeDetails({
+          ...recipeData,
+          id: docSnap.id, // Include the document ID in the recipe details
+        });
       } else {
         console.error("Document does not exist!");
       }
@@ -79,7 +83,9 @@ export const RecipeDetails = () => {
               <p>by {recipeDetails?.author}</p>
               <p>{createdAtFormatted}</p>
               <div className="flex gap-2">
-                <EditButton />
+                <Link to={`/edit-recipe/${recipeDetails?.id}`}>
+                  <EditButton />
+                </Link>
                 <BookmarkButton />
                 <DeleteButton />
               </div>

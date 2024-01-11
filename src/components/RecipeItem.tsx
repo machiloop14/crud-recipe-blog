@@ -25,7 +25,9 @@ export const RecipeItem = (props: Props) => {
         <p>by {recipe.author}</p>
         <p>{createdAtFormatted}</p>
         <div className="flex gap-2">
-          <EditButton />
+          <Link to={`/edit-recipe/${recipe.id}`}>
+            <EditButton />
+          </Link>
           <BookmarkButton />
           <DeleteButton />
         </div>

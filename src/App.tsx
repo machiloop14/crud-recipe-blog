@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Navbar from "./components/Navbar.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -10,32 +7,47 @@ import AddRecipe from "./pages/AddRecipe.tsx";
 import { RecipeDetails } from "./components/RecipeDetails.tsx";
 
 import { ToastContainer } from "react-toastify";
+import { useState, createContext } from "react";
+
+export interface AppContextProps {
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const AppContext = createContext<AppContextProps>({
+  isEditing: false,
+  setIsEditing: () => {},
+});
 
 function App() {
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <>
-      <BrowserRouter>
-        <div className="w-11/12 mx-auto text-gray-500">
-          <Navbar />
-          <main className="my-8">
-            <Routes>
-              <Route path="/" element={<AllRecipes />} />
-              <Route
-                path="/login"
-                element={
-                  <Login
-                    heading="Login"
-                    // warningMessage="You have to login first"
-                  />
-                }
-              />
-              <Route path="/add-recipe" element={<AddRecipe />} />
-              <Route path="/recipe/:id" element={<RecipeDetails />} />
-            </Routes>
-          </main>
-          <ToastContainer />
-        </div>
-      </BrowserRouter>
+      <AppContext.Provider value={{ isEditing, setIsEditing }}>
+        <BrowserRouter>
+          <div className="w-11/12 mx-auto text-gray-500">
+            <Navbar />
+            <main className="my-8">
+              <Routes>
+                <Route path="/" element={<AllRecipes />} />
+                <Route
+                  path="/login"
+                  element={
+                    <Login
+                      heading="Login"
+                      // warningMessage="You have to login first"
+                    />
+                  }
+                />
+                <Route path="/add-recipe" element={<AddRecipe />} />
+                <Route path="/recipe/:id" element={<RecipeDetails />} />
+                <Route path="/edit-recipe/:id" element={<AddRecipe />} />
+              </Routes>
+            </main>
+            <ToastContainer />
+          </div>
+        </BrowserRouter>
+      </AppContext.Provider>
     </>
   );
 }

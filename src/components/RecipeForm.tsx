@@ -2,12 +2,22 @@ import * as MdIcons from "react-icons/md";
 import { useForm, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Login from "../pages/Login";
 import useNotification from "../customHooks/useNotification";
+import { useContext, useEffect } from "react";
+import { AppContext, AppContextProps } from "../App";
+import { Recipe } from "../pages/AllRecipes";
 
 interface RecipeFormData {
   title: string;
@@ -24,6 +34,10 @@ export const RecipeForm = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const { notify } = useNotification();
+  const { id } = useParams();
+  const { isEditing, setIsEditing } = useContext<AppContextProps>(AppContext);
+  console.log(id);
+  console.log(isEditing);
 
   const schema = yup.object().shape({
     title: yup.string().required("You must add a title."),
@@ -46,6 +60,7 @@ export const RecipeForm = () => {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<RecipeFormData>({
     resolver: yupResolver(schema),
@@ -58,7 +73,7 @@ export const RecipeForm = () => {
 
   const recipesRef = collection(db, "recipe");
 
-  // const onCreateRecipe = async (data: RecipeFormData) => {
+  // const onSubmit = async (data: RecipeFormData) => {
   //   await addDoc(recipesRef, {
   //     title: data.title.toLowerCase(),
   //     imageUrl: data.imageUrl,
@@ -72,24 +87,72 @@ export const RecipeForm = () => {
   //   navigate("/");
   // };
 
-  const onCreateRecipe = async (data: RecipeFormData) => {
-    await addDoc(recipesRef, {
-      ...data,
-      title: data.title.toLowerCase(),
-      author: user?.displayName,
-      userId: user?.uid,
-      createdAt: serverTimestamp(),
-    });
+  const fetchRecipeFormValues = async () => {
+    if (isEditing && id) {
+      const docRef = doc(db, "recipe", id);
+      const docSnap = await getDoc(docRef);
 
-    notify("New recipe added", { type: "success" });
-    navigate("/");
+      if (docSnap.exists()) {
+        console.log(docSnap.data());
+        const {
+          title,
+          imageUrl,
+          ingredients,
+          description,
+          instruction,
+          instructions,
+        } = docSnap.data() as Recipe;
+        setValue("title", title);
+        setValue("imageUrl", imageUrl);
+        setValue("description", description);
+        setValue("ingredients", ingredients);
+        setValue("instruction", instruction);
+        setValue("instructions", instructions);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchRecipeFormValues();
+  }, [id, isEditing, setValue]);
+
+  const onSubmit = async (data: RecipeFormData) => {
+    console.log(data);
+    if (isEditing && id) {
+      // Update user details in Firestore
+      const docRef = doc(db, "recipe", id);
+
+      updateDoc(docRef, data)
+        .then(() => {
+          console.log(
+            "A New Document Field has been added to an existing document"
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setIsEditing(false);
+      notify("Recipe updated", { type: "success" });
+      navigate("/");
+    } else {
+      await addDoc(recipesRef, {
+        ...data,
+        title: data.title.toLowerCase(),
+        author: user?.displayName,
+        userId: user?.uid,
+        createdAt: serverTimestamp(),
+      });
+
+      notify("New recipe added", { type: "success" });
+      navigate("/");
+    }
   };
 
   return (
     <>
       {user ? (
         <form
-          onSubmit={handleSubmit(onCreateRecipe)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 text-sm mt-8"
         >
           <div className="form__field grid ">
