@@ -5,6 +5,8 @@ import { BookmarkButton } from "./BookmarkButton";
 import { Link } from "react-router-dom";
 import useConvertTimestamp from "../customHooks/useConvertTimestamp";
 import { useDefaultImage } from "../customHooks/useDefaultImage";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
 
 interface Props {
   recipe: IRecipe;
@@ -14,6 +16,7 @@ export const RecipeItem = (props: Props) => {
   const { recipe } = props;
   const createdAtFormatted = useConvertTimestamp(recipe?.createdAt);
   const { handleImageError } = useDefaultImage();
+  const [user] = useAuthState(auth);
 
   if (!recipe) {
     return <div>No recipe data available.</div>;
@@ -25,9 +28,11 @@ export const RecipeItem = (props: Props) => {
         <p>by {recipe.author}</p>
         <p>{createdAtFormatted}</p>
         <div className="flex gap-2">
-          <Link to={`/edit-recipe/${recipe.id}`}>
-            <EditButton />
-          </Link>
+          {user && user?.uid == recipe?.userId && (
+            <Link to={`/edit-recipe/${recipe?.id}`} className="max-h-5">
+              <EditButton />
+            </Link>
+          )}
           <BookmarkButton />
           <DeleteButton />
         </div>

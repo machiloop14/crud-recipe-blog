@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
 import { auth } from "../config/firebase";
@@ -9,10 +9,11 @@ import useNotification from "../customHooks/useNotification";
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const { notify } = useNotification();
-
+  const navigate = useNavigate();
   const signUserOut = async () => {
     await signOut(auth);
 
+    navigate("/");
     notify("Logout successful", { type: "success" });
   };
 

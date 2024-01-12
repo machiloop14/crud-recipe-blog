@@ -271,7 +271,7 @@ export const RecipeForm = () => {
           />
         </form>
       ) : (
-        <Login warningMessage="You must login to add a recipe" />
+        <Login warningMessage="You must login to add or edit a recipe" />
       )}
     </>
   );

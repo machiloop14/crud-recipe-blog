@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Recipe } from "../pages/AllRecipes";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import { BookmarkButton } from "./BookmarkButton";
 import { EditButton } from "./EditButton";
 import { DeleteButton } from "./DeleteButton";
 import useConvertTimestamp from "../customHooks/useConvertTimestamp";
 import { useDefaultImage } from "../customHooks/useDefaultImage";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const RecipeDetails = () => {
   const { id } = useParams<{ id: string }>();
+
+  const [user] = useAuthState(auth);
 
   const [recipeDetails, setRecipeDetails] = useState<Recipe | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,13 +82,19 @@ export const RecipeDetails = () => {
             />
           </div>
           <div className="flex flex-col">
-            <div className="flex gap-6 items-end ">
+            <div className="flex gap-6 items-end items-center">
               <p>by {recipeDetails?.author}</p>
               <p>{createdAtFormatted}</p>
               <div className="flex gap-2">
-                <Link to={`/edit-recipe/${recipeDetails?.id}`}>
-                  <EditButton />
-                </Link>
+                {user && user?.uid == recipeDetails?.userId && (
+                  <Link
+                    to={`/edit-recipe/${recipeDetails?.id}`}
+                    className="max-h-5"
+                  >
+                    <EditButton />
+                  </Link>
+                )}
+
                 <BookmarkButton />
                 <DeleteButton />
               </div>
@@ -106,10 +115,14 @@ export const RecipeDetails = () => {
               <h1 className="text-xl mb-2 italic">Instructions</h1>
               <div className="flex gap-2 flex-col mt-2">
                 <p className="whitespace-pre-line">
-                  {recipeDetails?.instruction}
+                  <span className="font-bold">Step 1: </span>
+                  <span>{recipeDetails?.instruction}</span>
                 </p>
                 {recipeDetails?.instructions?.map((instruction, index) => (
-                  <p key={index}>{instruction.addedInstruction}</p>
+                  <p key={index}>
+                    <span className="font-bold">step {index + 2}: </span>
+                    <span>{instruction.addedInstruction}</span>
+                  </p>
                 ))}
               </div>
             </div>

@@ -7,7 +7,7 @@ export const EditButton = () => {
 
   return (
     <button onClick={() => setIsEditing(true)}>
-      <FaIcons.FaPenSquare className="w-5 h-5 cursor-pointer" />;
+      <FaIcons.FaPenSquare className="w-5 h-5 cursor-pointer" />
     </button>
   );
 };
