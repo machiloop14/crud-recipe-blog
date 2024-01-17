@@ -83,7 +83,12 @@ export const RecipeDetails = () => {
           </div>
           <div className="flex flex-col">
             <div className="flex gap-6 items-end items-center">
-              <p>by {recipeDetails?.author}</p>
+              <p>
+                {" "}
+                {user?.uid == recipeDetails?.userId
+                  ? "authored by you"
+                  : `by ${recipeDetails?.author}`}
+              </p>
               <p>{createdAtFormatted}</p>
               <div className="flex gap-2">
                 {user && user?.uid == recipeDetails?.userId && (
@@ -95,7 +100,7 @@ export const RecipeDetails = () => {
                   </Link>
                 )}
 
-                <BookmarkButton />
+                {recipeDetails && <BookmarkButton recipe={recipeDetails} />}
                 <DeleteButton />
               </div>
             </div>

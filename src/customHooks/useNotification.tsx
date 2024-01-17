@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 const useNotification = () => {
   const [notificationConfig, setNotificationConfig] = useState<ToastOptions>({
     position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
+    autoClose: 1500,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

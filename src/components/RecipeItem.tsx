@@ -25,7 +25,11 @@ export const RecipeItem = (props: Props) => {
   return (
     <div className="recipe-item max-w-3xl py-4 border-b-2 grid border-gray-400 gap-4 ">
       <div className="flex gap-2 flex-col items-end">
-        <p>by {recipe.author}</p>
+        <p>
+          {user?.uid == recipe?.userId
+            ? "authored by you"
+            : `by ${recipe.author}`}
+        </p>
         <p>{createdAtFormatted}</p>
         <div className="flex gap-2">
           {user && user?.uid == recipe?.userId && (
@@ -33,7 +37,7 @@ export const RecipeItem = (props: Props) => {
               <EditButton />
             </Link>
           )}
-          <BookmarkButton />
+          <BookmarkButton recipe={recipe} />
           <DeleteButton />
         </div>
       </div>
