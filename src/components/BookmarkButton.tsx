@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   where,
 } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
@@ -41,6 +42,7 @@ export const BookmarkButton = ({ recipe }: Props) => {
       const newDoc = await addDoc(bookmarksRef, {
         userId: user?.uid,
         postId: recipe.id,
+        bookmarkedAt: serverTimestamp(),
       });
 
       if (user) {

@@ -9,6 +9,7 @@ import EditRecipe from "./pages/EditRecipe.tsx";
 
 import { ToastContainer } from "react-toastify";
 import { useState, createContext } from "react";
+import { BookmarkedRecipes } from "./pages/BookmarkedRecipes.tsx";
 
 export interface AppContextProps {
   isEditing: boolean;
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/add-recipe" element={<AddRecipe />} />
                 <Route path="/recipe/:id" element={<RecipeDetails />} />
                 <Route path="/edit-recipe/:id" element={<EditRecipe />} />
+                <Route path="/bookmarked" element={<BookmarkedRecipes />} />
               </Routes>
             </main>
             <ToastContainer />
