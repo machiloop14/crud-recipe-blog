@@ -19,3 +19,9 @@ header a.active {
   font-weight: bold;
   color: rgb(37, 99, 235);
 }
+
+@media (max-width: 767px) {
+  .recipe-item {
+    grid-template-columns: initial;
+  }
+}

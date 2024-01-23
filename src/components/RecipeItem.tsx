@@ -24,7 +24,7 @@ export const RecipeItem = (props: Props) => {
 
   return (
     <div className="recipe-item max-w-3xl py-4 border-b-2 grid border-gray-400 gap-4 ">
-      <div className="flex gap-2 flex-col items-end">
+      <div className="flex gap-2 md:flex-col items-end">
         <p>
           {user?.uid == recipe?.userId
             ? "authored by you"
