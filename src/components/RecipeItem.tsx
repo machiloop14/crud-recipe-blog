@@ -38,7 +38,7 @@ export const RecipeItem = (props: Props) => {
             </Link>
           )}
           <BookmarkButton recipe={recipe} />
-          <DeleteButton />
+          <DeleteButton recipe={recipe} />
         </div>
       </div>
       <div>

@@ -54,9 +54,6 @@ const Navbar = () => {
         <NavLink to="/bookmarked" className="hover:text-blue-600">
           Bookmarked Recipes
         </NavLink>
-        <NavLink to="/deleted" className="hover:text-blue-600">
-          Deleted Recipes
-        </NavLink>
       </div>
     </header>
   );

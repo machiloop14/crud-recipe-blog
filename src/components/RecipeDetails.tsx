@@ -101,7 +101,7 @@ export const RecipeDetails = () => {
                 )}
 
                 {recipeDetails && <BookmarkButton recipe={recipeDetails} />}
-                <DeleteButton />
+                {recipeDetails && <DeleteButton recipe={recipeDetails} />}
               </div>
             </div>
             <div className="mt-8">
