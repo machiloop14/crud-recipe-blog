@@ -11,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 import { useState, createContext } from "react";
 import { BookmarkedRecipes } from "./pages/BookmarkedRecipes.tsx";
 
+require("dotenv").config();
+
 export interface AppContextProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;

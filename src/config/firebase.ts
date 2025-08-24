@@ -5,9 +5,11 @@ import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+const apiKey = process.env.API_KEY;
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "REDACTED",
+  apiKey: apiKey,
   authDomain: "recipe-app-9045e.firebaseapp.com",
   projectId: "recipe-app-9045e",
   storageBucket: "recipe-app-9045e.firebasestorage.app",
