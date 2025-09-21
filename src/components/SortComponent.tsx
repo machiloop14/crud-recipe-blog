@@ -14,15 +14,19 @@ export const SortComponent = ({ onSort }: Props) => {
   };
 
   return (
-    <div className=" flex gap-2">
-      <p className="font-bold">Sort by:</p>
+    <div className=" flex gap-2 bg-[#f5ebe8] rounded-full px-4 py-2 text-sm font-medium text-black">
+      <p className="">Sort by:</p>
       <select
-        className="italic focus-visible:outline-0"
+        className="italic focus-visible:outline-0 bg-transparent "
         value={value}
         onChange={handleSort}
       >
-        <option value="createdAt">Recently added</option>
-        <option value="title">Alphabetically(title)</option>
+        <option value="createdAt" className="bg-[#f5ebe8]">
+          Recently added
+        </option>
+        <option value="title" className="bg-[#f5ebe8]">
+          Alphabetically(title)
+        </option>
       </select>
     </div>
   );
