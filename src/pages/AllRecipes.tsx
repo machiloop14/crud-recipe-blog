@@ -61,9 +61,13 @@ const AllRecipes = () => {
 
   return (
     <div className="wrapper">
-      <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between max-w-3xl mb-20 items-center md:items-start">
+      {/* <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between max-w-3xl mb-20 items-center md:items-start">
         <SortComponent onSort={handleSort} />
         <SearchComponent onSearch={handleSearch} />
+      </div> */}
+      <div className="flex flex-col gap-4  md:gap-2  mb-20  md:items-start">
+        <SearchComponent onSearch={handleSearch} />
+        <SortComponent onSort={handleSort} />
       </div>
       <div className="flex flex-col gap-6">
         {filteredRecipes?.map((recipe) => (

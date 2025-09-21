@@ -1,4 +1,5 @@
 import { useState } from "react";
+import searchImage from "../assets/images/search.png";
 
 interface Props {
   onSearch: (params: string) => void;
@@ -15,13 +16,14 @@ export const SearchComponent = ({ onSearch }: Props) => {
   };
 
   return (
-    <div>
+    <div className="w-full px-4 bg-[#f5ebe8] rounded-lg py-2 flex flex-row gap-2 items-center">
+      <img src={searchImage} alt="" className="w-4 h-4 mt-1" />
       <input
         type="search"
         name="search"
         id="search"
-        placeholder="search..."
-        className="border border-1 border-black-300 px-2 focus-visible:outline-0"
+        placeholder="Search recipes"
+        className="border-black-300 placeholder:not-italic placeholder:text-[#9c634a] text-[#9c634a] focus-visible:outline-0 w-full bg-transparent"
         onChange={handleSearch}
         value={searchTerm}
       />

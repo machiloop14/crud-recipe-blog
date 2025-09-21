@@ -20,6 +20,11 @@ header a.active {
   color: rgb(37, 99, 235);
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  /* Hide the default appearance */
+  -webkit-appearance: none;
+}
+
 @media (max-width: 767px) {
   .recipe-item {
     grid-template-columns: initial;

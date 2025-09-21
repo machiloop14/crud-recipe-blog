@@ -32,7 +32,7 @@ function App() {
           <div className="bg-[#fcfaf7] flex flex-1">
             <div className="w-11/12 mx-auto text-gray-500">
               <Navbar />
-              <main className="my-8">
+              <main className="my-8 w-8/12 mx-auto">
                 <Routes>
                   <Route path="/" element={<AllRecipes />} />
                   <Route
