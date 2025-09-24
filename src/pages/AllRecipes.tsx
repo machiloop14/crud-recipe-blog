@@ -69,7 +69,7 @@ const AllRecipes = () => {
         <SearchComponent onSearch={handleSearch} />
         <SortComponent onSort={handleSort} />
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-3">
         {filteredRecipes?.map((recipe) => (
           <RecipeItem key={recipe.id} recipe={recipe} />
         ))}

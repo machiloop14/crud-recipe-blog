@@ -23,8 +23,8 @@ export const RecipeItem = (props: Props) => {
   }
 
   return (
-    <div className="recipe-item max-w-3xl py-4 border-b-2 grid border-gray-400 gap-4 ">
-      <div className="flex gap-2 md:flex-col items-end">
+    <div className="recipe-item max-w-3xl   grid  gap-0 rounded-xl">
+      {/* <div className="flex gap-2 md:flex-col items-end">
         <p>
           {user?.uid == recipe?.userId
             ? "authored by you"
@@ -56,7 +56,41 @@ export const RecipeItem = (props: Props) => {
         />
       </div>
       <div></div>
-      <div></div>
+      <div></div> */}
+      <div className="image-wrapper">
+        <img
+          src={recipe.imageUrl}
+          alt={recipe.title}
+          className="w-40 h-full object-cover rounded-l-xl"
+          onError={handleImageError}
+        />
+      </div>
+      <div className="recipe-info py-4 px-4 flex gap-1 flex-col">
+        <div className="row-1 flex justify-between items-center ">
+          <Link to={`recipe/${recipe.id}`} className="text-xl mb-2">
+            {recipe.title.toUpperCase()}
+          </Link>
+          <BookmarkButton recipe={recipe} />
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="row-2">
+            <p className="text-sm line-clamp-2">{recipe.description}</p>
+          </div>
+          <div className="row-3 flex gap-1 text-sm">
+            <p>
+              {user?.uid == recipe?.userId ? "by you" : `by ${recipe.author}`} |
+            </p>
+            <p> Created: {createdAtFormatted}</p>
+
+            {user && user?.uid == recipe?.userId && (
+              <Link to={`/edit-recipe/${recipe?.id}`} className="max-h-5">
+                | Edit
+              </Link>
+            )}
+            <DeleteButton recipe={recipe} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

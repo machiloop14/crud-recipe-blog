@@ -59,7 +59,7 @@ export const DeleteButton = ({ recipe }: Props) => {
     <>
       {user && user?.uid == recipe.userId && (
         <button onClick={handleDeleteClick}>
-          <MdIcons.MdDelete className="w-5 h-5 cursor-pointer" />
+          <p className="cursor-pointer">| Delete</p>
         </button>
       )}
       {showConfirmation && (
