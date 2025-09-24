@@ -151,125 +151,153 @@ export const RecipeForm = () => {
   return (
     <>
       {user ? (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 text-sm mt-8"
-        >
-          <div className="form__field grid ">
-            <label htmlFor="recipeTitle" className="w-36">
-              Recipe Title:
-            </label>
-            <div>
-              <input
-                {...register("title")}
-                id="recipeTitle"
-                className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-10 w-full"
-              />
-              <p className="text-red-600">{errors.title?.message}</p>
-            </div>
-          </div>
-
-          <div className="form__field grid ">
-            <label htmlFor="recipeImage" className="w-36">
-              Recipe Image url:
-            </label>
-            <div>
-              <input
-                {...register("imageUrl")}
-                id="recipeImage"
-                className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-10 w-full"
-              />
-              <p className="text-red-600">{errors.imageUrl?.message}</p>
-            </div>
-          </div>
-
-          <div className="form__field grid ">
-            <label htmlFor="recipeDescription">Recipe Description: </label>
-            <div>
-              <textarea
-                {...register("description")}
-                id="recipeDescription"
-                className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-28 resize-none w-full"
-              ></textarea>
-              <p className="text-red-600">{errors.description?.message}</p>
-            </div>
-          </div>
-
-          <div className="form__field grid ">
-            <label htmlFor="recipeIngredients">Recipe Ingredients: </label>
-            <div>
-              <textarea
-                {...register("ingredients")}
-                id="recipeIngredients"
-                className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-28 resize-none w-full"
-              ></textarea>
-              <p className="text-red-600">{errors.ingredients?.message}</p>
-            </div>
-          </div>
-
-          <div className="form__field grid ">
-            <label htmlFor="recipeInstruction">Instruction 1: </label>
-            <div>
-              <textarea
-                {...register("instruction")}
-                id="recipeInstruction"
-                className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-14 resize-none w-full"
-              ></textarea>
-              <p className="text-red-600">{errors.instruction?.message}</p>
-            </div>
-          </div>
-
-          <>
-            {fields.map((field, index) => (
-              <div className="form__field grid" key={field.id}>
-                <label htmlFor={`recipeInstruction${index}`}>
-                  {`instruction ${index + 2}`}:
-                </label>
-                <div>
-                  <textarea
-                    {...register(
-                      `instructions.${index}.addedInstruction` as const
-                    )}
-                    id={`recipeInstruction${index}`}
-                    className="border outline-0 border-gray-500 focus:border-blue-600 px-1 py-1 h-14 resize-none w-full"
-                  ></textarea>
-                  <p className="text-red-600">
-                    {errors.instructions &&
-                      errors.instructions[index] &&
-                      errors.instructions[index]?.addedInstruction?.message}
-                  </p>
-                  <button
-                    type="button"
-                    className="text-blue-600 hover:border-blue-600 hover:border-b-2"
-                    onClick={() => remove(index)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
-          </>
-
-          <button
-            className="flex items-center gap-1"
-            type="button"
-            onClick={() => {
-              console.log("again");
-              append({ addedInstruction: "" });
-              console.log(fields);
-            }} // Pass an empty string or any default value
+        <div className="flex flex-col">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4 text-sm mt-8"
           >
-            <MdIcons.MdAddCircle
-              style={{ color: "black", width: "30px", height: "30px" }}
-            />
-            <span>Add Instruction</span>
-          </button>
+            <div className="form__field ">
+              <label
+                htmlFor="recipeTitle"
+                className="w-36 text-[#1c120d] font-medium"
+              >
+                Recipe Title:
+              </label>
+              <div>
+                <input
+                  {...register("title")}
+                  id="recipeTitle"
+                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 pl-3 py-1 h-10 w-full placeholder:text-[#9c634a] placeholder:not-italic"
+                  placeholder="Enter recipe title"
+                />
+                <p className="text-red-600">{errors.title?.message}</p>
+              </div>
+            </div>
+
+            <div className="form__field ">
+              <label
+                htmlFor="recipeDescription"
+                className="text-[#1c120d] font-medium"
+              >
+                Description:{" "}
+              </label>
+              <div>
+                <textarea
+                  {...register("description")}
+                  id="recipeDescription"
+                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-28 resize-none w-full"
+                ></textarea>
+                <p className="text-red-600">{errors.description?.message}</p>
+              </div>
+            </div>
+
+            <div className="form__field ">
+              <label
+                htmlFor="recipeImage"
+                className="w-36 text-[#1c120d] font-medium"
+              >
+                Recipe Image(url):
+              </label>
+              <div>
+                <input
+                  {...register("imageUrl")}
+                  id="recipeImage"
+                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 pl-3 py-1 h-10 w-full placeholder:text-[#9c634a] placeholder:not-italic"
+                  placeholder="Enter image url"
+                />
+                <p className="text-red-600">{errors.imageUrl?.message}</p>
+              </div>
+            </div>
+
+            <div className="form__field ">
+              <label
+                htmlFor="recipeIngredients"
+                className="text-[#1c120d] font-medium"
+              >
+                Ingredients:{" "}
+              </label>
+              <div>
+                <textarea
+                  {...register("ingredients")}
+                  id="recipeIngredients"
+                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-28 resize-none w-full"
+                ></textarea>
+                <p className="text-red-600">{errors.ingredients?.message}</p>
+              </div>
+            </div>
+
+            <div className="form__field ">
+              <label
+                htmlFor="recipeInstruction"
+                className="text-[#1c120d] font-medium"
+              >
+                Instruction 1:{" "}
+              </label>
+              <div>
+                <textarea
+                  {...register("instruction")}
+                  id="recipeInstruction"
+                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-14 resize-none w-full"
+                ></textarea>
+                <p className="text-red-600">{errors.instruction?.message}</p>
+              </div>
+            </div>
+
+            <>
+              {fields.map((field, index) => (
+                <div className="form__field" key={field.id}>
+                  <label
+                    htmlFor={`recipeInstruction${index}`}
+                    className="text-[#1c120d] font-medium"
+                  >
+                    {`instruction ${index + 2}`}:
+                  </label>
+                  <div>
+                    <textarea
+                      {...register(
+                        `instructions.${index}.addedInstruction` as const
+                      )}
+                      id={`recipeInstruction${index}`}
+                      className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-14 resize-none w-full"
+                    ></textarea>
+                    <p className="text-red-600">
+                      {errors.instructions &&
+                        errors.instructions[index] &&
+                        errors.instructions[index]?.addedInstruction?.message}
+                    </p>
+                    <button
+                      type="button"
+                      className="text-[#9c634a] hover:border-[#9c634a] hover:border-b-2"
+                      onClick={() => remove(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </>
+
+            <button
+              className="flex items-center gap-1"
+              type="button"
+              onClick={() => {
+                console.log("again");
+                append({ addedInstruction: "" });
+                console.log(fields);
+              }} // Pass an empty string or any default value
+            >
+              <MdIcons.MdAddCircle
+                style={{ color: "#f0570d", width: "30px", height: "30px" }}
+              />
+              <span>Add Instruction</span>
+            </button>
+          </form>
           <input
             type="submit"
-            className="bg-gray-500 text-white p-2 mt-3 cursor-pointer hover:bg-black"
-            value="submit"
+            className="bg-[#f0570d] text-white py-[6px] px-4 rounded-md font-medium mt-3 cursor-pointer hover:bg-black self-end"
+            value="Create Recipe"
           />
-        </form>
+        </div>
       ) : (
         <Login warningMessage="You must login to add or edit a recipe" />
       )}
