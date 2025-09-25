@@ -83,7 +83,7 @@ export const BookmarkedRecipes = () => {
 
   return (
     <>
-      <h1 className="text-4xl mb-10">Bookmarks</h1>
+      <h1 className="text-4xl mb-10 text-[#1c120d]">Bookmarked Recipes</h1>
       {user ? (
         <>
           {filteredArray && filteredArray?.length > 0 ? (
@@ -91,7 +91,7 @@ export const BookmarkedRecipes = () => {
               <RecipeItem key={recipe.id} recipe={recipe} />
             ))
           ) : (
-            <p>No Bookmarked Recipe</p>
+            <p className="text-[#1c120d]">No Bookmarked Recipe</p>
           )}
         </>
       ) : (

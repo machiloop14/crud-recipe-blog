@@ -29,7 +29,7 @@ function App() {
     <>
       <AppContext.Provider value={{ isEditing, setIsEditing }}>
         <BrowserRouter>
-          <div className="bg-[#fcfaf7] flex flex-1">
+          <div className="bg-[#fcfaf7] flex flex-1 min-h-screen">
             <div className="w-11/12 mx-auto text-gray-500">
               <Navbar />
               <main className="my-8 w-8/12 mx-auto">

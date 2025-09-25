@@ -67,7 +67,10 @@ export const RecipeItem = (props: Props) => {
       </div>
       <div className="recipe-info py-4 px-4 flex gap-1 flex-col">
         <div className="row-1 flex justify-between items-center ">
-          <Link to={`recipe/${recipe.id}`} className="text-xl mb-2">
+          <Link
+            to={`recipe/${recipe.id}`}
+            className="text-xl mb-2 text-[rgb(74,74,74)]"
+          >
             {recipe.title.toUpperCase()}
           </Link>
           <BookmarkButton recipe={recipe} />
