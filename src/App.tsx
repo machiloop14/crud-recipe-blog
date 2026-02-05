@@ -10,6 +10,7 @@ import EditRecipe from "./pages/EditRecipe.tsx";
 import { ToastContainer } from "react-toastify";
 import { useState, createContext } from "react";
 import { BookmarkedRecipes } from "./pages/BookmarkedRecipes.tsx";
+import Navigation from "./components/Navigation.tsx";
 
 // require("dotenv").config();
 
@@ -29,10 +30,11 @@ function App() {
     <>
       <AppContext.Provider value={{ isEditing, setIsEditing }}>
         <BrowserRouter>
-          <div className="bg-[#fcfaf7] flex flex-1 min-h-screen">
-            <div className="w-11/12 mx-auto text-gray-500">
+          <div className="bg-white flex flex-1 min-h-screen w-full">
+            <Navigation />
+            <div className="text-gray-500 flex-auto ml-56">
               <Navbar />
-              <main className="my-8 w-8/12 mx-auto">
+              <main className="my-8">
                 <Routes>
                   <Route path="/" element={<AllRecipes />} />
                   <Route
