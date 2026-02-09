@@ -46,9 +46,9 @@ function App() {
           <div className="bg-white flex flex-1 min-h-screen w-full">
             <Navigation />
             <div className="text-gray-500 flex-auto ml-56">
-              <Header />
+              {/* <Header /> */}
 
-              <main className="my-8 px-6">
+              <main className="my-0 px-6">
                 <Routes>
                   <Route path="/" element={<AllRecipes />} />
                   <Route
