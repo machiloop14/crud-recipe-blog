@@ -25,7 +25,7 @@ export const SearchComponent = ({ onSearch }: Props) => {
         name="search"
         id="search"
         placeholder="Search recipes, ingredients..."
-        className="border-black-300 placeholder:not-italic placeholder:text-[#757575] text-[#757575] focus-visible:outline-0 w-full bg-transparent text-sm focus:outline-none focus:bg-transparent "
+        className="placeholder:not-italic placeholder:text-[#757575] text-[#757575] focus-visible:outline-0 w-full bg-transparent text-sm focus:outline-none focus:bg-transparent "
         onChange={handleSearch}
         value={searchTerm}
       />

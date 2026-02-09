@@ -14,17 +14,17 @@ export const SortComponent = ({ onSort }: Props) => {
   };
 
   return (
-    <div className=" flex gap-2 bg-[#f5ebe8] rounded-full px-4 py-2 text-sm font-medium text-black">
-      <p className="">Sort by:</p>
+    <div className=" flex gap-2 bg-[#FF5B27] rounded-full px-4 py-2 text-sm font-medium text-black">
+      {/* <p className="">Sort by:</p> */}
       <select
-        className="italic focus-visible:outline-0 bg-transparent "
+        className="italic focus-visible:outline-0 bg-transparent text-white "
         value={value}
         onChange={handleSort}
       >
-        <option value="createdAt" className="bg-[#f5ebe8]">
+        <option value="createdAt" className="bg-[#FFDED4] text-[#ff5b27]">
           Recently added
         </option>
-        <option value="title" className="bg-[#f5ebe8]">
+        <option value="title" className="bg-[#FFDED4] text-[#ff5b27]">
           Alphabetically(title)
         </option>
       </select>

@@ -2,6 +2,10 @@
   font-family: "Inter", sans-serif;
 }
 
+.gridss {
+  grid-auto-rows: 1fr;
+}
+
 form {
   max-width: 400px;
 }
@@ -13,7 +17,7 @@ form .form__field {
 }
 
 .recipe-item {
-  grid-template-columns: 140px auto;
+  /* grid-template-columns: 140px auto; */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px;
   border-color: rgb(206 206 205);
   background-color: transparent;

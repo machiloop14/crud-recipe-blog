@@ -22,8 +22,10 @@ export const RecipeItem = (props: Props) => {
     return <div>No recipe data available.</div>;
   }
 
+  console.log(user);
+
   return (
-    <div className="recipe-item max-w-3xl   grid  gap-0 rounded-xl">
+    <div className="recipe-item max-w-3xl  flex flex-col  gap-0 rounded-xl overflow-hidden ">
       {/* <div className="flex gap-2 md:flex-col items-end">
         <p>
           {user?.uid == recipe?.userId
@@ -57,28 +59,45 @@ export const RecipeItem = (props: Props) => {
       </div>
       <div></div>
       <div></div> */}
-      <div className="image-wrapper">
+      <div className="image-wrapper overflow-hidden">
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
-          className="w-40 h-full object-cover rounded-l-xl"
+          className="w-full h-40 object-cover"
           onError={handleImageError}
         />
       </div>
-      <div className="recipe-info py-4 px-4 flex gap-1 flex-col">
-        <div className="row-1 flex justify-between items-center ">
-          <Link
-            to={`recipe/${recipe.id}`}
-            className="text-xl mb-2 text-[rgb(74,74,74)]"
-          >
-            {recipe.title.toUpperCase()}
-          </Link>
-          <BookmarkButton recipe={recipe} />
-        </div>
-        <div className="flex flex-col gap-8">
-          <div className="row-2">
-            <p className="text-sm line-clamp-2">{recipe.description}</p>
+      {/* bottom */}
+      <div className="recipe-info px-4  flex flex-col justify-between flex-1 bg-[#FBFAF9]">
+        {/* bottom top */}
+        <div className="py-4 flex flex-col  ">
+          <div className="row-1 flex justify-between items-center  gap-2">
+            <Link
+              to={`recipe/${recipe.id}`}
+              className="text-lg font-semibold mb-2 text-black capitalize "
+            >
+              {recipe.title}
+            </Link>
+            <BookmarkButton recipe={recipe} />
           </div>
+          <div>
+            <p className="line-clamp-3 text-[#949494] text-sm">
+              {recipe.description}
+            </p>
+          </div>
+        </div>
+        {/* bottom bottom */}
+        <div className="border-t border-[#E8E8E8] flex justify-between py-4 items-center">
+          <div className="rounded-full bg-[#FF5B27] w-7 h-7 text-center flex items-center justify-center">
+            <p className="text-xs lowercase text-white">
+              {user?.uid == recipe?.userId
+                ? "You"
+                : `${recipe.author.slice(0, 2)}`}{" "}
+            </p>
+          </div>
+          <p className="text-xs text-[#949494]">{createdAtFormatted}</p>
+        </div>
+        {/* <div className="flex flex-col gap-8">
           <div className="row-3 flex gap-1 text-sm">
             <p>
               {user?.uid == recipe?.userId ? "by you" : `by ${recipe.author}`} |
@@ -92,7 +111,7 @@ export const RecipeItem = (props: Props) => {
             )}
             <DeleteButton recipe={recipe} />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

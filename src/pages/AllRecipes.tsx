@@ -62,14 +62,24 @@ const AllRecipes = () => {
   return (
     <div className="wrapper">
       {/* <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between max-w-3xl mb-20 items-center md:items-start">
-        <SortComponent onSort={handleSort} />
         <SearchComponent onSearch={handleSearch} />
-      </div> */}
-      <div className="flex flex-col gap-4  md:gap-4  mb-20  md:items-start hidden">
+        </div> */}
+      <div className="flex justify-between mb-8">
+        <div className="">
+          <p className="text-2xl font-bold text-black ">Discover Recipes</p>
+          <p className="text-sm text-[#949494] ">
+            Explore culinary masterpieces from our community.
+          </p>
+        </div>
+        <div className="w-52 mb-3">
+          <SortComponent onSort={handleSort} />
+        </div>
+      </div>
+      <div className=" flex-col gap-4  md:gap-4  mb-20  md:items-start hidden">
         <SearchComponent onSearch={handleSearch} />
         <SortComponent onSort={handleSort} />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="grid grid-cols-3  gap-6 gridss">
         {filteredRecipes?.map((recipe) => (
           <RecipeItem key={recipe.id} recipe={recipe} />
         ))}

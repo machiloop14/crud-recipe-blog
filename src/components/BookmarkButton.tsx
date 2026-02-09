@@ -14,6 +14,7 @@ import {
 import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
+import { MdBookmarkBorder, MdBookmark } from "react-icons/md";
 
 interface Props {
   recipe: IRecipe;
@@ -125,12 +126,9 @@ export const BookmarkButton = ({ recipe }: Props) => {
       {user && (
         <button onClick={hasUserBookmarked ? removeBookmark : addBookmark}>
           {hasUserBookmarked ? (
-            <MdIcons.MdOutlineStar
-              className="w-6 h-5 cursor-pointer"
-              style={{ color: "blue" }}
-            />
+            <MdBookmark className="w-6 h-5 cursor-pointer" color="#FF5B27" />
           ) : (
-            <MdIcons.MdStarOutline className="w-5 h-5 cursor-pointer" />
+            <MdBookmarkBorder className="w-5 h-5 cursor-pointer" />
           )}
         </button>
       )}
