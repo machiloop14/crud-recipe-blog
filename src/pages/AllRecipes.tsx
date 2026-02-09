@@ -65,7 +65,7 @@ const AllRecipes = () => {
         <SortComponent onSort={handleSort} />
         <SearchComponent onSearch={handleSearch} />
       </div> */}
-      <div className="flex flex-col gap-4  md:gap-4  mb-20  md:items-start">
+      <div className="flex flex-col gap-4  md:gap-4  mb-20  md:items-start hidden">
         <SearchComponent onSearch={handleSearch} />
         <SortComponent onSort={handleSort} />
       </div>

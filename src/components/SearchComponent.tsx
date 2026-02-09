@@ -1,5 +1,7 @@
 import { useState } from "react";
 import searchImage from "../assets/images/search.png";
+import { MdSearch } from "react-icons/md";
+import { LuSearch } from "react-icons/lu";
 
 interface Props {
   onSearch: (params: string) => void;
@@ -16,14 +18,14 @@ export const SearchComponent = ({ onSearch }: Props) => {
   };
 
   return (
-    <div className="w-full px-4 bg-[#f5ebe8] rounded-lg py-2 flex flex-row gap-2 items-center">
-      <img src={searchImage} alt="" className="w-4 h-4 mt-1" />
+    <div className="w-full px-3 bg-[#f8f8f7] rounded-lg py-2 flex flex-row gap-2 items-center border border-[#E8E8E8]">
+      <LuSearch size={18} color="#949494" />
       <input
         type="search"
         name="search"
         id="search"
-        placeholder="Search recipes"
-        className="border-black-300 placeholder:not-italic placeholder:text-[#9c634a] text-[#9c634a] focus-visible:outline-0 w-full bg-transparent"
+        placeholder="Search recipes, ingredients..."
+        className="border-black-300 placeholder:not-italic placeholder:text-[#757575] text-[#757575] focus-visible:outline-0 w-full bg-transparent text-sm focus:outline-none focus:bg-transparent "
         onChange={handleSearch}
         value={searchTerm}
       />

@@ -11,6 +11,19 @@ import { ToastContainer } from "react-toastify";
 import { useState, createContext } from "react";
 import { BookmarkedRecipes } from "./pages/BookmarkedRecipes.tsx";
 import Navigation from "./components/Navigation.tsx";
+import { SearchComponent } from "./components/SearchComponent.tsx";
+import { SortComponent } from "./components/SortComponent.tsx";
+import { FaSearch } from "react-icons/fa";
+import {
+  MdAlarm,
+  MdFilter,
+  MdFilter1,
+  MdNotifications,
+  MdOutlineNotifications,
+  MdOutlineSort,
+} from "react-icons/md";
+import { LuBell } from "react-icons/lu";
+import Header from "./components/Header.tsx";
 
 // require("dotenv").config();
 
@@ -33,8 +46,9 @@ function App() {
           <div className="bg-white flex flex-1 min-h-screen w-full">
             <Navigation />
             <div className="text-gray-500 flex-auto ml-56">
-              <Navbar />
-              <main className="my-8">
+              <Header />
+
+              <main className="my-8 px-6">
                 <Routes>
                   <Route path="/" element={<AllRecipes />} />
                   <Route

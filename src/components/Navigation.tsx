@@ -3,7 +3,6 @@ import {
   MdBookmarkBorder,
   MdOutlineExplore,
   MdOutlineRestaurantMenu,
-  MdOutlineLogout,
   MdMoreVert,
 } from "react-icons/md";
 
@@ -47,7 +46,7 @@ const Navigation = () => {
             <p className="text-[#949494] text-xs">@mariacooks</p>
           </div>
         </div>
-        <MdMoreVert size={16} className="cursor-pointer" />
+        <MdMoreVert size={16} className="cursor-pointer text-[#949494]" />
         {/* right */}
       </div>
     </div>
