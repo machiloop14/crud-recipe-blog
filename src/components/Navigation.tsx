@@ -5,6 +5,7 @@ import {
   MdOutlineRestaurantMenu,
   MdMoreVert,
 } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -16,23 +17,32 @@ const Navigation = () => {
           </div>
           <p className="font-bold text-xl">Curlinara</p>
         </div>
-        <button className="flex gap-1.5 items-center justify-center p-2 w-full text-white text-xs add-recipt mt-10 bg-[#FF5B27] rounded-lg">
+        <Link
+          to="/add-recipe"
+          className="flex gap-1.5 items-center justify-center p-2 w-full text-white text-xs add-recipt mt-10 bg-[#FF5B27] rounded-lg"
+        >
           <MdAddCircleOutline size={14} className="-mt-0.5" />
           <p>Post Recipe</p>
-        </button>
+        </Link>
         <div className="menu text-sm mt-6 font-medium text-[#4A4A4A] flex flex-col gap-1.5 ">
-          <div className="text-black bg-[#E8E8E8] mb-1.5 rounded-lg flex gap-2  items-center px-2 py-1.5 cursor-pointer ">
+          <Link
+            to="/"
+            className="text-black bg-[#E8E8E8] mb-1.5 rounded-lg flex gap-2  items-center px-2 py-1.5 cursor-pointer "
+          >
             <MdOutlineExplore size={16} />
             <p>Feed</p>
-          </div>
+          </Link>
           <div className="flex gap-2  items-center px-2 py-1.5 cursor-pointer">
             <MdOutlineRestaurantMenu size={16} />
             <p>My Recipes</p>
           </div>
-          <div className="flex gap-2  items-center px-2 py-1.5 cursor-pointer">
+          <Link
+            to="/bookmarked"
+            className="flex gap-2  items-center px-2 py-1.5 cursor-pointer"
+          >
             <MdBookmarkBorder size={16} />
             <p>Bookmarks</p>
-          </div>
+          </Link>
         </div>
       </div>
 
