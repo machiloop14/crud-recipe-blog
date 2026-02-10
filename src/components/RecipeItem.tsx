@@ -59,27 +59,45 @@ export const RecipeItem = (props: Props) => {
       </div>
       <div></div>
       <div></div> */}
-      <div className="image-wrapper overflow-hidden">
+      <div className="image-wrapper overflow-hidden relative">
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
-          className="w-full h-40 object-cover"
+          className="w-full h-40 object-cover bg-black"
           onError={handleImageError}
         />
+        <div className="flex gap-1 absolute z-10 top-4 right-2">
+          {user && user?.uid == recipe?.userId && (
+            <>
+              <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
+                <Link to={`/edit-recipe/${recipe?.id}`} className="max-h-5">
+                  <EditButton />
+                </Link>
+              </div>
+              <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
+                <DeleteButton recipe={recipe} />
+              </div>
+            </>
+          )}
+
+          <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
+            <BookmarkButton recipe={recipe} />
+          </div>
+        </div>
       </div>
       {/* bottom */}
       <div className="recipe-info px-4  flex flex-col justify-between flex-1 bg-[#FBFAF9]">
         {/* bottom top */}
         <div className="py-4 flex flex-col  ">
-          <div className="row-1 flex justify-between items-center  gap-2">
-            <Link
-              to={`recipe/${recipe.id}`}
-              className="text-lg font-semibold mb-2 text-black capitalize "
-            >
-              {recipe.title}
-            </Link>
-            <BookmarkButton recipe={recipe} />
-          </div>
+          {/* <div className="row-1 flex justify-between items-center  gap-2"> */}
+          <Link
+            to={`recipe/${recipe.id}`}
+            className="text-lg font-semibold mb-2 text-black capitalize "
+          >
+            {recipe.title}
+          </Link>
+          {/* <BookmarkButton recipe={recipe} /> */}
+          {/* </div> */}
           <div>
             <p className="line-clamp-3 text-[#949494] text-sm">
               {recipe.description}

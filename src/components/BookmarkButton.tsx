@@ -126,9 +126,15 @@ export const BookmarkButton = ({ recipe }: Props) => {
       {user && (
         <button onClick={hasUserBookmarked ? removeBookmark : addBookmark}>
           {hasUserBookmarked ? (
-            <MdBookmark className="w-6 h-5 cursor-pointer" color="#FF5B27" />
+            <MdBookmark
+              className="w-3.5 h-3.5 cursor-pointer"
+              color="#FF5B27"
+            />
           ) : (
-            <MdBookmarkBorder className="w-5 h-5 cursor-pointer" />
+            <MdBookmarkBorder
+              className="w-3.5 h-3.5 cursor-pointer"
+              color="FF5B27"
+            />
           )}
         </button>
       )}

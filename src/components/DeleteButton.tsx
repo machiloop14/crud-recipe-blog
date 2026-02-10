@@ -7,6 +7,7 @@ import useNotification from "../customHooks/useNotification";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmationModal";
+import { LuTrash2 } from "react-icons/lu";
 
 interface Props {
   recipe: IRecipe;
@@ -58,9 +59,11 @@ export const DeleteButton = ({ recipe }: Props) => {
   return (
     <>
       {user && user?.uid == recipe.userId && (
-        <button onClick={handleDeleteClick}>
-          <p className="cursor-pointer">| Delete</p>
-        </button>
+        <LuTrash2
+          onClick={handleDeleteClick}
+          className="w-3.5 h-3.5 cursor-pointer"
+          color="#FF0000"
+        />
       )}
       {showConfirmation && (
         <ConfirmationModal

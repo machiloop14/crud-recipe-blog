@@ -82,14 +82,21 @@ export const BookmarkedRecipes = () => {
   console.log(filteredArray);
 
   return (
-    <>
-      <h1 className="text-4xl mb-10 text-[#1c120d]">Bookmarked Recipes</h1>
+    <div>
+      <div className="">
+        <p className="text-2xl font-bold text-black ">Saved Recipes</p>
+        <p className="text-sm text-[#949494] ">
+          {filteredArray?.length} recipes saved to your collection.
+        </p>
+      </div>
       {user ? (
         <>
           {filteredArray && filteredArray?.length > 0 ? (
-            filteredArray?.map((recipe) => (
-              <RecipeItem key={recipe.id} recipe={recipe} />
-            ))
+            <div className="grid grid-cols-3 gap-6 gridss">
+              {filteredArray?.map((recipe) => (
+                <RecipeItem key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
           ) : (
             <p className="text-[#1c120d]">No Bookmarked Recipe</p>
           )}
@@ -97,6 +104,6 @@ export const BookmarkedRecipes = () => {
       ) : (
         <Login warningMessage="You must login to view bookmarked Recipes" />
       )}
-    </>
+    </div>
   );
 };
