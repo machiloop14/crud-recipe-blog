@@ -7,6 +7,7 @@ import { RecipeItem } from "../components/RecipeItem";
 import Login from "./Login";
 import { SearchComponent } from "../components/SearchComponent";
 import { LuBell } from "react-icons/lu";
+import Header from "../components/Header";
 
 export const BookmarkedRecipes = () => {
   const [userBookmarks, setUserBookmarks] = useState<string[] | null>(null);
@@ -107,14 +108,22 @@ export const BookmarkedRecipes = () => {
 
   return (
     <div>
-      <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
+      <Header
+        handleSearch={handleSearch}
+        placeholder="search your bookmarks..."
+      />
+
+      {/* <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
         <div className="w-72">
-          <SearchComponent onSearch={handleSearch} />
+          <SearchComponent
+            onSearch={handleSearch}
+            placeholder="search your bookmarks..."
+          />
         </div>
         <div>
           <LuBell size={18} color="#949494" />
         </div>
-      </div>
+      </div> */}
       <div className="mt-6 mb-8">
         <p className="text-2xl font-bold text-black ">Saved Recipes</p>
         <p className="text-sm text-[#949494] ">
@@ -124,7 +133,7 @@ export const BookmarkedRecipes = () => {
       {user ? (
         <>
           {recipesToShow && recipesToShow?.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6 gridss">
+            <div className="grid grid-cols-3 gap-6 gridss mb-6">
               {recipesToShow?.map((recipe) => (
                 <RecipeItem key={recipe.id} recipe={recipe} />
               ))}

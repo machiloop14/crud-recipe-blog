@@ -5,6 +5,7 @@ import { RecipeItem } from "../components/RecipeItem";
 import { SortComponent } from "../components/SortComponent";
 import { SearchComponent } from "../components/SearchComponent";
 import { LuBell } from "react-icons/lu";
+import Header from "../components/Header";
 
 export interface Recipe {
   title: string;
@@ -62,17 +63,19 @@ const AllRecipes = () => {
 
   return (
     <div className="wrapper">
-      {/* <div className="flex flex-col gap-4 md:flex-row md:gap-0 justify-between max-w-3xl mb-20 items-center md:items-start">
-        <SearchComponent onSearch={handleSearch} />
-        </div> */}
-      <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
+      <Header handleSearch={handleSearch} placeholder="search recipes..." />
+
+      {/* <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
         <div className="w-72">
-          <SearchComponent onSearch={handleSearch} />
+          <SearchComponent
+            onSearch={handleSearch}
+            placeholder="Search recipes..."
+          />
         </div>
         <div>
           <LuBell size={18} color="#949494" />
         </div>
-      </div>
+      </div> */}
       <div className="mt-6">
         <div className="flex justify-between mb-8">
           <div className="">
@@ -85,7 +88,7 @@ const AllRecipes = () => {
             <SortComponent onSort={handleSort} />
           </div>
         </div>
-        <div className="grid grid-cols-3  gap-6 gridss">
+        <div className="grid grid-cols-3  gap-6 gridss mb-6">
           {filteredRecipes?.map((recipe) => (
             <RecipeItem key={recipe.id} recipe={recipe} />
           ))}

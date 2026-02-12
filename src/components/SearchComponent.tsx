@@ -5,9 +5,10 @@ import { LuSearch } from "react-icons/lu";
 
 interface Props {
   onSearch: (params: string) => void;
+  placeholder: string;
 }
 
-export const SearchComponent = ({ onSearch }: Props) => {
+export const SearchComponent = ({ onSearch, placeholder }: Props) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event: { target: { value: string } }) => {
@@ -24,7 +25,7 @@ export const SearchComponent = ({ onSearch }: Props) => {
         type="search"
         name="search"
         id="search"
-        placeholder="Search recipes, ingredients..."
+        placeholder={placeholder}
         className="placeholder:not-italic placeholder:text-[#757575] text-[#757575] focus-visible:outline-0 w-full bg-transparent text-sm focus:outline-none focus:bg-transparent "
         onChange={handleSearch}
         value={searchTerm}
