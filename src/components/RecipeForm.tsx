@@ -39,21 +39,41 @@ export const RecipeForm = () => {
   console.log(id);
   console.log(isEditing);
 
-  const schema = yup.object().shape({
+  // const schema = yup.object().shape({
+  //   title: yup.string().required("You must add a title."),
+  //   imageUrl: yup.string(),
+  //   description: yup.string().required("You must add a description"),
+  //   ingredients: yup.string().required("You must add a list of ingredients"),
+  //   instruction: yup
+  //     .string()
+  //     .required("Required field. You must add at least one instruction"),
+  //   instructions: yup.array().of(
+  //     yup.object({
+  //       addedInstruction: yup
+  //         .string()
+  //         .required("Cannot be blank. Click remove button instead"),
+  //     })
+  //   ),
+  // });
+  const schema = yup.object({
     title: yup.string().required("You must add a title."),
-    imageUrl: yup.string(),
+    imageUrl: yup.string().required().default(""),
     description: yup.string().required("You must add a description"),
     ingredients: yup.string().required("You must add a list of ingredients"),
     instruction: yup
       .string()
       .required("Required field. You must add at least one instruction"),
-    instructions: yup.array().of(
-      yup.object({
-        addedInstruction: yup
-          .string()
-          .required("Cannot be blank. Click remove button instead"),
-      })
-    ),
+    instructions: yup
+      .array()
+      .of(
+        yup.object({
+          addedInstruction: yup
+            .string()
+            .required("Cannot be blank. Click remove button instead"),
+        })
+      )
+      .required()
+      .default([]),
   });
 
   const {
@@ -122,7 +142,7 @@ export const RecipeForm = () => {
       // Update user details in Firestore
       const docRef = doc(db, "recipe", id);
 
-      updateDoc(docRef, data)
+      updateDoc(docRef, data as any)
         .then(() => {
           console.log(
             "A New Document Field has been added to an existing document"
@@ -291,12 +311,14 @@ export const RecipeForm = () => {
               />
               <span>Add Instruction</span>
             </button>
+
+            <input
+              type="submit"
+              className="bg-[#f0570d] text-white py-[6px] px-4 rounded-md font-medium mt-3 cursor-pointer hover:bg-black self-end"
+              value="Create Recipe"
+              onClick={() => console.log("hello")}
+            />
           </form>
-          <input
-            type="submit"
-            className="bg-[#f0570d] text-white py-[6px] px-4 rounded-md font-medium mt-3 cursor-pointer hover:bg-black self-end"
-            value="Create Recipe"
-          />
         </div>
       ) : (
         <Login warningMessage="You must login to add or edit a recipe" />

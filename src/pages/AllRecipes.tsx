@@ -65,17 +65,6 @@ const AllRecipes = () => {
     <div className="wrapper">
       <Header handleSearch={handleSearch} placeholder="search recipes..." />
 
-      {/* <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
-        <div className="w-72">
-          <SearchComponent
-            onSearch={handleSearch}
-            placeholder="Search recipes..."
-          />
-        </div>
-        <div>
-          <LuBell size={18} color="#949494" />
-        </div>
-      </div> */}
       <div className="mt-6">
         <div className="flex justify-between mb-8">
           <div className="">

@@ -14,10 +14,10 @@ export const SortComponent = ({ onSort }: Props) => {
   };
 
   return (
-    <div className=" flex gap-2 bg-[#FF5B27] rounded-full px-4 py-2 text-sm font-medium text-black">
+    <div className=" flex bg-[#FF5B27] rounded-full px-4 py-2 text-sm font-medium text-black">
       {/* <p className="">Sort by:</p> */}
       <select
-        className="italic focus-visible:outline-0 bg-transparent text-white "
+        className="italic focus-visible:outline-0 bg-transparent text-white outline-none "
         value={value}
         onChange={handleSort}
       >
