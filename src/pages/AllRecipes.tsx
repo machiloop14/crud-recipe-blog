@@ -19,6 +19,7 @@ export interface Recipe {
   author: string;
   userId: string;
   id: string;
+  userPhotoUrl: string;
   createdAt: number;
 }
 
@@ -66,8 +67,8 @@ const AllRecipes = () => {
       <Header handleSearch={handleSearch} placeholder="search recipes..." />
 
       <div className="mt-6">
-        <div className="flex justify-between mb-8">
-          <div className="">
+        <div className="flex justify-between mb-8 items-center">
+          <div className="flex flex-col gap-2">
             <p className="text-2xl font-bold text-black ">Discover Recipes</p>
             <p className="text-sm text-[#949494] ">
               Explore culinary masterpieces from our community.

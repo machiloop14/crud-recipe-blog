@@ -124,7 +124,7 @@ export const BookmarkedRecipes = () => {
           <LuBell size={18} color="#949494" />
         </div>
       </div> */}
-      <div className="mt-6 mb-8">
+      <div className="mt-6 mb-8 flex flex-col gap-2">
         <p className="text-2xl font-bold text-black ">Saved Recipes</p>
         <p className="text-sm text-[#949494] ">
           {filteredArray?.length} recipes saved to your collection.

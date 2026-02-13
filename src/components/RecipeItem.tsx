@@ -47,9 +47,11 @@ export const RecipeItem = (props: Props) => {
             </>
           )}
 
-          <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
-            <BookmarkButton recipe={recipe} />
-          </div>
+          {user && (
+            <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
+              <BookmarkButton recipe={recipe} />
+            </div>
+          )}
         </div>
       </div>
       {/* bottom */}
@@ -73,13 +75,18 @@ export const RecipeItem = (props: Props) => {
         </div>
         {/* bottom bottom */}
         <div className="border-t border-[#E8E8E8] flex justify-between py-4 items-center">
-          <div className="rounded-full bg-[#FF5B27] w-7 h-7 text-center flex items-center justify-center">
-            <p className="text-xs lowercase text-white">
-              {user?.uid == recipe?.userId
-                ? "You"
-                : `${recipe.author.slice(0, 2)}`}{" "}
+          <div className="flex gap-2 items-center">
+            <img
+              src={recipe.userPhotoUrl}
+              alt=""
+              className="w-6 h-6 object-cover rounded-full"
+              referrerPolicy="no-referrer"
+            />
+            <p className="text-xs font-medium text-black capitalize">
+              {user?.uid == recipe?.userId ? "You" : recipe.author}
             </p>
           </div>
+
           <p className="text-xs text-[#949494]">{createdAtFormatted}</p>
         </div>
         {/* <div className="flex flex-col gap-8">

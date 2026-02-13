@@ -160,6 +160,7 @@ export const RecipeForm = () => {
         title: data.title.toLowerCase(),
         author: user?.displayName,
         userId: user?.uid,
+        userPhotoUrl: user?.photoURL,
         createdAt: serverTimestamp(),
       });
 

@@ -12,7 +12,7 @@ const useConvertTimestamp = (
         .toString()
         .padStart(2, "0");
       const year = timestamp.toDate().getFullYear();
-      const createdAtFormatted = `${day}/${month}/${year}`;
+      const createdAtFormatted = `${day}/${month}/${year.toString().slice(2, 4)}`;
       setFormattedDate(createdAtFormatted);
     }
   }, [timestamp]);
