@@ -4,7 +4,7 @@ import { RecipeForm } from "../components/RecipeForm";
 
 const AddRecipe = () => {
   return (
-    <div className="mx-auto w-2/3 pt-8">
+    <div className="mx-auto w-3/4 pt-8">
       <div className="flex flex-col gap-2 mb-4">
         <p className="text-2xl font-bold text-black ">Create New Recipe</p>
         <p className="text-sm text-[#949494] ">

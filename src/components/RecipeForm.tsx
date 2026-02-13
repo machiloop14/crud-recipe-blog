@@ -155,7 +155,7 @@ export const RecipeForm = () => {
         <div className="flex flex-col bg-[#FBFAF9] border border-[#E8E8E8] px-6 rounded-xl mb-8">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-5 text-sm mt-8  min-w-full"
+            className="flex flex-col gap-5 text-sm mt-4 min-w-full"
           >
             <div className="form__field ">
               <label
@@ -214,7 +214,7 @@ export const RecipeForm = () => {
                   <img
                     src={imageUrl}
                     alt="Recipe preview"
-                    className="w-full  h-48 object-cover rounded-lg border"
+                    className="w-full max-w-sm mx-auto  h-48 object-cover rounded-lg border"
                     onError={(e) => {
                       e.currentTarget.src =
                         "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=826";
