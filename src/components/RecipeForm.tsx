@@ -39,22 +39,6 @@ export const RecipeForm = () => {
   console.log(id);
   console.log(isEditing);
 
-  // const schema = yup.object().shape({
-  //   title: yup.string().required("You must add a title."),
-  //   imageUrl: yup.string(),
-  //   description: yup.string().required("You must add a description"),
-  //   ingredients: yup.string().required("You must add a list of ingredients"),
-  //   instruction: yup
-  //     .string()
-  //     .required("Required field. You must add at least one instruction"),
-  //   instructions: yup.array().of(
-  //     yup.object({
-  //       addedInstruction: yup
-  //         .string()
-  //         .required("Cannot be blank. Click remove button instead"),
-  //     })
-  //   ),
-  // });
   const schema = yup.object({
     title: yup.string().required("You must add a title."),
     imageUrl: yup.string().required().default(""),
@@ -81,6 +65,7 @@ export const RecipeForm = () => {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<RecipeFormData>({
     resolver: yupResolver(schema),
@@ -93,19 +78,14 @@ export const RecipeForm = () => {
 
   const recipesRef = collection(db, "recipe");
 
-  // const onSubmit = async (data: RecipeFormData) => {
-  //   await addDoc(recipesRef, {
-  //     title: data.title.toLowerCase(),
-  //     imageUrl: data.imageUrl,
-  //     description: data.description,
-  //     ingredients: data.ingredients,
-  //     instruction: data.instruction,
-  //     author: user?.displayName,
-  //     id: user?.uid,
-  //   });
-
-  //   navigate("/");
-  // };
+  const imageUrl = watch("imageUrl");
+  const isValidUrl = (url?: string) => {
+    try {
+      return !!url && Boolean(new URL(url));
+    } catch {
+      return false;
+    }
+  };
 
   const fetchRecipeFormValues = async () => {
     if (isEditing && id) {
@@ -172,24 +152,24 @@ export const RecipeForm = () => {
   return (
     <>
       {user ? (
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-[#FBFAF9] border border-[#E8E8E8] px-6 rounded-xl mb-8">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4 text-sm mt-8"
+            className="flex flex-col gap-5 text-sm mt-8  min-w-full"
           >
             <div className="form__field ">
               <label
                 htmlFor="recipeTitle"
-                className="w-36 text-[#1c120d] font-medium"
+                className=" text-black font-medium text-sm"
               >
-                Recipe Title:
+                Recipe Title
               </label>
               <div>
                 <input
                   {...register("title")}
                   id="recipeTitle"
-                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 pl-3 py-1 h-10 w-full placeholder:text-[#9c634a] placeholder:not-italic"
-                  placeholder="Enter recipe title"
+                  className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8] pl-3 py-1 h-8 w-full placeholder:text-[#757575] placeholder:not-italic text-sm placeholder:text-sm text-[#757575]"
+                  placeholder="e.g Grandma's Apple Pie"
                 />
                 <p className="text-red-600">{errors.title?.message}</p>
               </div>
@@ -198,15 +178,16 @@ export const RecipeForm = () => {
             <div className="form__field ">
               <label
                 htmlFor="recipeDescription"
-                className="text-[#1c120d] font-medium"
+                className="text-black text-sm font-medium"
               >
-                Description:{" "}
+                Description
               </label>
               <div>
                 <textarea
                   {...register("description")}
                   id="recipeDescription"
-                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-28 resize-none w-full"
+                  placeholder="Tell us about your recipe..."
+                  className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8]  px-3 py-2 h-24 resize-none w-full placeholder:not-italic placeholder:text-[#757575] placeholder:text-sm text-sm text-[#757575]"
                 ></textarea>
                 <p className="text-red-600">{errors.description?.message}</p>
               </div>
@@ -215,33 +196,51 @@ export const RecipeForm = () => {
             <div className="form__field ">
               <label
                 htmlFor="recipeImage"
-                className="w-36 text-[#1c120d] font-medium"
+                className="text-black text-sm font-medium"
               >
-                Recipe Image(url):
+                Cover Image
               </label>
               <div>
                 <input
                   {...register("imageUrl")}
                   id="recipeImage"
-                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 pl-3 py-1 h-10 w-full placeholder:text-[#9c634a] placeholder:not-italic"
-                  placeholder="Enter image url"
+                  className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8]  pl-3 py-1 h-8 w-full placeholder:text-[#757575] placeholder:not-italic text-sm placeholder:text-sm text-[#757575]"
+                  placeholder="https://"
                 />
                 <p className="text-red-600">{errors.imageUrl?.message}</p>
               </div>
+              {isValidUrl(imageUrl) ? (
+                <div className="mt-2">
+                  <img
+                    src={imageUrl}
+                    alt="Recipe preview"
+                    className="w-full  h-48 object-cover rounded-lg border"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=826";
+                    }}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <img src="/imagePreview.png" alt="" />
+                </div>
+              )}
             </div>
 
             <div className="form__field ">
               <label
                 htmlFor="recipeIngredients"
-                className="text-[#1c120d] font-medium"
+                className="text-black text-sm font-medium"
               >
-                Ingredients:{" "}
+                Ingredients
               </label>
               <div>
                 <textarea
                   {...register("ingredients")}
                   id="recipeIngredients"
-                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-28 resize-none w-full"
+                  placeholder="1 cup flour &#10;sugar"
+                  className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8]  px-3 py-2 h-24 resize-none w-full placeholder:not-italic placeholder:text-[#757575] placeholder:text-sm text-sm text-[#757575]"
                 ></textarea>
                 <p className="text-red-600">{errors.ingredients?.message}</p>
               </div>
@@ -250,17 +249,22 @@ export const RecipeForm = () => {
             <div className="form__field ">
               <label
                 htmlFor="recipeInstruction"
-                className="text-[#1c120d] font-medium"
+                className="text-black text-sm font-medium"
               >
-                Instruction 1:{" "}
+                Instructions
               </label>
-              <div>
-                <textarea
-                  {...register("instruction")}
-                  id="recipeInstruction"
-                  className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-14 resize-none w-full"
-                ></textarea>
-                <p className="text-red-600">{errors.instruction?.message}</p>
+              <div className="flex gap-1.5">
+                <p className="w-5 h-5 bg-[#FFDED4] text-[#FF5B27] rounded-full flex items-center justify-center text-xs font-semibold">
+                  1
+                </p>
+                <div className="basis-full">
+                  <textarea
+                    {...register("instruction")}
+                    id="recipeInstruction"
+                    className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8]  px-3 py-2 h-16 resize-none w-full placeholder:not-italic placeholder:text-[#757575] placeholder:text-sm text-sm text-[#757575]"
+                  ></textarea>
+                  <p className="text-red-600">{errors.instruction?.message}</p>
+                </div>
               </div>
             </div>
 
@@ -269,37 +273,45 @@ export const RecipeForm = () => {
                 <div className="form__field" key={field.id}>
                   <label
                     htmlFor={`recipeInstruction${index}`}
-                    className="text-[#1c120d] font-medium"
+                    className="text-[#1c120d] font-medium hidden"
                   >
                     {`instruction ${index + 2}`}:
                   </label>
-                  <div>
-                    <textarea
-                      {...register(
-                        `instructions.${index}.addedInstruction` as const
-                      )}
-                      id={`recipeInstruction${index}`}
-                      className="border rounded-lg bg-transparent outline-0 border-[#e8d6cf] focus:border-2 px-1 py-1 h-14 resize-none w-full"
-                    ></textarea>
-                    <p className="text-red-600">
-                      {errors.instructions &&
-                        errors.instructions[index] &&
-                        errors.instructions[index]?.addedInstruction?.message}
-                    </p>
-                    <button
-                      type="button"
-                      className="text-[#9c634a] hover:border-[#9c634a] hover:border-b-2"
-                      onClick={() => remove(index)}
-                    >
-                      Remove
-                    </button>
+                  <div className="flex w-full gap-1.5">
+                    <div className="flex ">
+                      <p className="w-5 h-5 bg-[#FFDED4] text-[#FF5B27] rounded-full flex items-center justify-center text-xs font-semibold">
+                        {index + 2}
+                      </p>
+                    </div>
+                    <div className="basis-full">
+                      <textarea
+                        {...register(
+                          `instructions.${index}.addedInstruction` as const
+                        )}
+                        id={`recipeInstruction${index}`}
+                        className="border rounded-lg bg-[#f8f8f7] outline-none border-[#e8e8e8]  px-3 py-2 h-16 resize-none w-full placeholder:not-italic placeholder:text-[#757575] placeholder:text-sm text-sm text-[#757575]"
+                      ></textarea>
+
+                      <p className="text-red-600">
+                        {errors.instructions &&
+                          errors.instructions[index] &&
+                          errors.instructions[index]?.addedInstruction?.message}
+                      </p>
+                      <button
+                        type="button"
+                        className="text-[#FF5B27] hover:text-[#9c634a]  text-xs"
+                        onClick={() => remove(index)}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </>
 
             <button
-              className="flex items-center gap-1"
+              className="flex items-center gap-2"
               type="button"
               onClick={() => {
                 console.log("again");
@@ -307,18 +319,22 @@ export const RecipeForm = () => {
                 console.log(fields);
               }} // Pass an empty string or any default value
             >
-              <MdIcons.MdAddCircle
-                style={{ color: "#f0570d", width: "30px", height: "30px" }}
+              <MdIcons.MdAddCircleOutline
+                color="#FF5B27"
+                size={20}
+                className="-mt-0.5"
               />
-              <span>Add Instruction</span>
+              <span className="text-[#FF5B27] text-sm">Add Next Step</span>
             </button>
 
-            <input
-              type="submit"
-              className="bg-[#f0570d] text-white py-[6px] px-4 rounded-md font-medium mt-3 cursor-pointer hover:bg-black self-end"
-              value="Create Recipe"
-              onClick={() => console.log("hello")}
-            />
+            <div className="border-t border-[#e8e8e8] flex justify-end mb-4">
+              <input
+                type="submit"
+                className="bg-[#FF5B27] text-white py-[6px] px-4 rounded-lg font-medium text-sm mt-4  cursor-pointer hover:bg-black "
+                value="Publish Recipe"
+                onClick={() => console.log("hello")}
+              />
+            </div>
           </form>
         </div>
       ) : (
