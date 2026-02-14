@@ -33,7 +33,7 @@ export const RecipeItem = (props: Props) => {
           className="w-full h-40 object-cover "
           onError={handleImageError}
         />
-        <div className="flex gap-1 absolute z-10 top-4 right-2">
+        <div className="flex gap-1 absolute  top-4 right-2">
           {user && user?.uid == recipe?.userId && (
             <>
               <div className="bg-white w-6 h-6 rounded-full flex justify-center items-center">
