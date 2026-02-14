@@ -30,7 +30,7 @@ export const RecipeItem = (props: Props) => {
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
-          className="w-full h-40 object-cover bg-black"
+          className="w-full h-40 object-cover "
           onError={handleImageError}
         />
         <div className="flex gap-1 absolute z-10 top-4 right-2">

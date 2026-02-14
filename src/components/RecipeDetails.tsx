@@ -10,6 +10,8 @@ import { DeleteButton } from "./DeleteButton";
 import useConvertTimestamp from "../customHooks/useConvertTimestamp";
 import { useDefaultImage } from "../customHooks/useDefaultImage";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { LuShoppingBasket } from "react-icons/lu";
+import { MdCircle, MdFormatListNumbered } from "react-icons/md";
 
 export const RecipeDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -72,62 +74,126 @@ export const RecipeDetails = () => {
           <p className="text-2xl">Loading...</p>
         </div>
       ) : (
-        <div className="recipe-details max-w-3xl py-4 flex flex-col  gap-4 ">
-          <div className="border-b-2 border-gray-400 py-4">
+        <div className="recipe-details w-3/4 mx-auto py-14 flex flex-col  gap-6 ">
+          <div className="flex flex-col gap-4">
+            {/* date and buttons */}
+            <div className="flex justify-between items-center">
+              <p className="text-xs font-medium text-[#949494]">
+                Published on {createdAtFormatted}
+              </p>
+              <div className="flex gap-1 ">
+                {user && user?.uid == recipeDetails?.userId && (
+                  <>
+                    <div className="bg-white border border-[#E8E8E8] w-7 h-7 rounded-lg flex justify-center items-center">
+                      <Link
+                        to={`/edit-recipe/${recipeDetails?.id}`}
+                        className="max-h-5"
+                      >
+                        <EditButton />
+                      </Link>
+                    </div>
+                    <div className="bg-white  border border-[#E8E8E8] w-7 h-7 rounded-lg flex justify-center items-center">
+                      <DeleteButton recipe={recipeDetails} />
+                    </div>
+                  </>
+                )}
+
+                {user && recipeDetails && (
+                  <div className="bg-white  border border-[#E8E8E8] w-7 h-7 rounded-lg flex justify-center items-center">
+                    <BookmarkButton recipe={recipeDetails} />
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <p className="font-extrabold text-3xl text-black capitalize">
+                {recipeDetails?.title}
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div>
+                <img
+                  src={recipeDetails?.userPhotoUrl}
+                  alt=""
+                  referrerPolicy="no-referrer"
+                  className="rounded-full w-8 h-8"
+                />
+              </div>
+              <div>
+                <p className="capitalize text-black font-semibold text-sm">
+                  {recipeDetails?.author}{" "}
+                  {user?.uid == recipeDetails?.userId && "(You)"}
+                </p>
+                <p className="text-[#949494] text-xs">Recipe Author</p>
+              </div>
+            </div>
+          </div>
+
+          {/* cover image */}
+          <div className="py-4 overflow-hidden">
             <img
               src={recipeDetails?.imageUrl}
               alt={recipeDetails?.title}
-              className="w-full h-full object-cover"
+              className="w-full h-80 object-cover rounded-lg"
               onError={handleImageError}
             />
           </div>
-          <div className="flex flex-col">
-            <div className="flex gap-6 items-end items-center">
-              <p>
-                {" "}
-                {user?.uid == recipeDetails?.userId
-                  ? "authored by you"
-                  : `by ${recipeDetails?.author}`}
-              </p>
-              <p>{createdAtFormatted}</p>
-              <div className="flex gap-2">
-                {user && user?.uid == recipeDetails?.userId && (
-                  <Link
-                    to={`/edit-recipe/${recipeDetails?.id}`}
-                    className="max-h-5"
-                  >
-                    <EditButton />
-                  </Link>
-                )}
 
-                {recipeDetails && <BookmarkButton recipe={recipeDetails} />}
-                {recipeDetails && <DeleteButton recipe={recipeDetails} />}
+          <div>
+            <p className="text-sm">{recipeDetails?.description}</p>
+          </div>
+
+          <div className="flex gap-6">
+            {/* ingredients */}
+            <div className="mt-0 bg-[#FBFAF9] px-4 py-4 basis-2/5 rounded-xl ">
+              <div className="flex gap-1.5 items-center mb-4">
+                <LuShoppingBasket size={18} color="#ff5b27" />
+                <p className="text-lg text-black font-bold">Ingredients</p>
+              </div>
+              <div className="whitespace-pre-line flex flex-col gap-2">
+                {recipeDetails?.ingredients.split("\n").map((line) => (
+                  <div className="flex gap-3 items-center border-b border-dashed border-[#E8E8E8] py-2 ingredient-li ">
+                    <MdCircle size={8} color="#ff5b27" />
+                    <p className="capitalize text-black text-sm">{line}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="mt-8">
-              <Link to={`recipe/${recipeDetails?.id}`} className="text-xl mb-2">
-                {recipeDetails?.title.toUpperCase()}
-              </Link>
-              <p className="text-sm">{recipeDetails?.description}</p>
-            </div>
-            <div className="mt-12">
-              <h1 className="text-xl mb-2 italic">Ingredients</h1>
-              <p className="whitespace-pre-line">
-                {recipeDetails?.ingredients}
-              </p>
-            </div>
-            <div className="mt-12">
-              <h1 className="text-xl mb-2 italic">Instructions</h1>
-              <div className="flex gap-2 flex-col mt-2">
-                <p className="whitespace-pre-line">
-                  <span className="font-bold">Step 1: </span>
-                  <span>{recipeDetails?.instruction}</span>
-                </p>
-                {recipeDetails?.instructions?.map((instruction, index) => (
-                  <p key={index}>
-                    <span className="font-bold">step {index + 2}: </span>
-                    <span>{instruction.addedInstruction}</span>
+
+            {/* instructions */}
+            <div className="basis-3/5">
+              <div className="flex gap-1.5 items-center mb-4">
+                <MdFormatListNumbered size={18} color="#ff5b27" />
+                <p className="text-lg text-black font-bold">Instructions</p>
+              </div>
+              <div className="flex gap-2 flex-col">
+                <div className="whitespace-pre-line flex gap-1.5 items-center">
+                  <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] w-6 h-6">
+                    <p className="font-bold text-[#ff5b27] text-sm ">1</p>
+                  </div>
+                  <p className="capitalize text-black text-sm ">
+                    {recipeDetails?.instruction}
                   </p>
+                </div>
+                {recipeDetails?.instructions?.map((instruction, index) => (
+                  // <p key={index}>
+                  //   <span className="font-bold">step {index + 2}: </span>
+                  //   <span>{instruction.addedInstruction}</span>
+                  // </p>
+
+                  <div
+                    className="whitespace-pre-line flex gap-1.5  items-center"
+                    key={index}
+                  >
+                    <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] w-6 h-6">
+                      <p className="font-bold text-[#ff5b27] text-sm ">
+                        {index + 2}
+                      </p>
+                    </div>
+                    <p className="capitalize text-black text-sm">
+                      {instruction.addedInstruction}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
