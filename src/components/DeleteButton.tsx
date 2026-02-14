@@ -68,7 +68,7 @@ export const DeleteButton = ({ recipe }: Props) => {
       {showConfirmation && (
         <ConfirmationModal
           heading="Delete Recipe"
-          message="You're going to delete this recipe. Are you sure?"
+          message="You're going to delete this recipe permanently. Are you sure?"
           confirmationText="Yes, Delete!"
           cancelText="No, Keep it."
           onConfirm={handleConfirm}

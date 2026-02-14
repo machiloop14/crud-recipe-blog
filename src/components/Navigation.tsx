@@ -1,3 +1,4 @@
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   MdAddCircleOutline,
   MdBookmarkBorder,
@@ -5,9 +6,25 @@ import {
   MdOutlineRestaurantMenu,
   MdMoreVert,
 } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
+import useNotification from "../customHooks/useNotification";
+import { signOut } from "firebase/auth";
+import { LuLogIn, LuLogOut } from "react-icons/lu";
 
 const Navigation = () => {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const { notify } = useNotification();
+
+  const signUserOut = async () => {
+    await signOut(auth);
+
+    navigate("/");
+    notify("Logout successful", { type: "success" });
+  };
+
   return (
     <div className="px-6 py-6 w-56 border-r border-[#E8E8E8] fixed left-0  top-0 flex flex-col justify-between h-full">
       <div>
@@ -47,18 +64,36 @@ const Navigation = () => {
       </div>
 
       {/* profile */}
-      <div className="mt-10 border-t border-t-[#E8E8E8] pt-5 flex items-center justify-between">
-        {/* left */}
-        <div className="flex gap-2 items-center">
-          <img src="/User.png" alt="profile image" className="w-8 h-8" />
-          <div>
-            <p className="font-semibold text-[#4A4A4A] text-sm">Maria Garcia</p>
-            <p className="text-[#949494] text-xs">@mariacooks</p>
+      {user ? (
+        <div className="mt-10 border-t border-t-[#E8E8E8] pt-5 flex items-center justify-between">
+          {/* left */}
+          <div className="flex gap-2 items-center">
+            <img src="/User.png" alt="profile image" className="w-8 h-8" />
+            <div>
+              <p className="font-semibold text-[#4A4A4A] text-sm">
+                Maria Garcia
+              </p>
+              <p className="text-[#949494] text-xs">@mariacooks</p>
+            </div>
           </div>
+
+          <LuLogOut
+            size={16}
+            className="cursor-pointer hover:text-[#949494]"
+            onClick={signUserOut}
+          />
         </div>
-        <MdMoreVert size={16} className="cursor-pointer text-[#949494]" />
-        {/* right */}
-      </div>
+      ) : (
+        <div>
+          <Link
+            to="/login"
+            className="flex items-center justify-center gap-2  text-black hover:text-[#949494] border border-[#e8e8e8] px-2.5 py-1.5 rounded-lg "
+          >
+            <LuLogIn size={18} />
+            <p className="font-medium text-sm">Login</p>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

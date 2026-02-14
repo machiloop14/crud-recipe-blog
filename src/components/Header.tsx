@@ -1,6 +1,7 @@
 import React from "react";
 import { SearchComponent } from "./SearchComponent";
-import { LuBell } from "react-icons/lu";
+import { LuBell, LuLogIn } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 interface Props {
   handleSearch: (params: string) => void;
@@ -13,9 +14,15 @@ const Header = ({ handleSearch, placeholder }: Props) => {
       <div className="w-72">
         <SearchComponent onSearch={handleSearch} placeholder={placeholder} />
       </div>
-      <div>
-        <LuBell size={18} color="#949494" />
-      </div>
+      {/* <div>
+        <Link
+          to="/login"
+          className="flex items-center gap-2  text-black hover:text-[#949494] border border-[#e8e8e8] px-2.5 py-1.5 rounded-lg"
+        >
+          <LuLogIn size={18} />
+          <p className="font-medium text-sm">Login</p>
+        </Link>
+      </div> */}
     </div>
   );
 };

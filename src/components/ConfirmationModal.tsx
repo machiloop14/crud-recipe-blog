@@ -24,7 +24,7 @@ const ConfirmationModal = ({
 }: ConfirmationModalProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const modal = document.getElementById("modal-main");
+      const modal = document.getElementById("modal-main"); //formerly getElementById("confirmation-modal")
       if (modal && !modal.contains(event.target as Node)) {
         onClose();
       }
@@ -59,13 +59,13 @@ const ConfirmationModal = ({
         <div className="flex  w-full flex-row-reverse justify-center gap-1 mt-1">
           <button
             onClick={onConfirm}
-            className=" basis-1/2 py-2 rounded-full text-xs font-semibold bg-[#ff3f56] text-white"
+            className=" basis-1/2 py-2.5 rounded-full text-xs font-semibold bg-[#ff3f56] text-white"
           >
             {confirmationText}
           </button>
           <button
             onClick={onCancel}
-            className=" basis-1/2  py-2 rounded-full text-xs font-semibold bg-[#f5f5f7] text-black"
+            className=" basis-1/2  py-2.5 rounded-full text-xs font-semibold bg-[#f5f5f7] text-black"
           >
             {cancelText}
           </button>
