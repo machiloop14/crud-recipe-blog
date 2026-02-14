@@ -8,6 +8,8 @@ import Login from "./Login";
 import { SearchComponent } from "../components/SearchComponent";
 import { LuBell } from "react-icons/lu";
 import Header from "../components/Header";
+import { BsExclamationTriangleFill } from "react-icons/bs";
+import LoginPrompt from "../components/LoginPrompt";
 
 export const BookmarkedRecipes = () => {
   const [userBookmarks, setUserBookmarks] = useState<string[] | null>(null);
@@ -124,27 +126,26 @@ export const BookmarkedRecipes = () => {
           <LuBell size={18} color="#949494" />
         </div>
       </div> */}
-      <div className="mt-6 mb-8 flex flex-col gap-2">
+      <div className="mt-6 mb-8 flex flex-col gap-2 px-6">
         <p className="text-2xl font-bold text-black ">Saved Recipes</p>
         <p className="text-sm text-[#949494] ">
-          {filteredArray?.length} recipes saved to your collection.
+          {filteredArray?.length} Recipes saved to your collection.
         </p>
       </div>
       {user ? (
         <>
           {recipesToShow && recipesToShow?.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6 gridss mb-6">
+            <div className="grid grid-cols-3 gap-6 gridss mb-6 px-6">
               {recipesToShow?.map((recipe) => (
                 <RecipeItem key={recipe.id} recipe={recipe} />
               ))}
             </div>
           ) : (
-            <p className="text-[#1c120d]">No Bookmarked Recipe</p>
+            <p className="text-[#1c120d] px-6">No Bookmarked Recipe</p>
           )}
         </>
       ) : (
-        // <Login warningMessage="You must login to view bookmarked Recipes" />
-        <p>hello</p>
+        <LoginPrompt message="You have to sign in to view your bookmarks" />
       )}
     </div>
   );

@@ -48,15 +48,15 @@ function App() {
             <div className="text-gray-500 flex-auto ml-56">
               {/* <Header /> */}
 
-              <main className="my-0 px-6">
+              <main className="my-0">
                 <Routes>
                   <Route path="/" element={<AllRecipes />} />
                   <Route
                     path="/login"
                     element={
                       <Login
-                        heading="Login"
-                        // warningMessage="You have to login first"
+
+                      // warningMessage="You have to login first"
                       />
                     }
                   />

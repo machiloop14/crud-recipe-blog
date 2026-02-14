@@ -18,6 +18,7 @@ import useNotification from "../customHooks/useNotification";
 import { useContext, useEffect } from "react";
 import { AppContext, AppContextProps } from "../App";
 import { Recipe } from "../pages/AllRecipes";
+import LoginPrompt from "./LoginPrompt";
 
 interface RecipeFormData {
   title: string;
@@ -338,7 +339,9 @@ export const RecipeForm = () => {
           </form>
         </div>
       ) : (
-        <Login warningMessage="You must login to add or edit a recipe" />
+        <div className="mt-10">
+          <LoginPrompt message="You have to sign in to add or edit recipes" />
+        </div>
       )}
     </>
   );
