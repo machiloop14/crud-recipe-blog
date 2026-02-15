@@ -11,10 +11,14 @@ import { auth } from "../config/firebase";
 import useNotification from "../customHooks/useNotification";
 import { signOut } from "firebase/auth";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
+import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log("location: " + location.pathname);
 
   const { notify } = useNotification();
 
@@ -44,18 +48,18 @@ const Navigation = () => {
         <div className="menu text-sm mt-6 font-medium text-[#4A4A4A] flex flex-col gap-1.5 ">
           <Link
             to="/"
-            className="text-black bg-[#E8E8E8] mb-1.5 rounded-lg flex gap-2  items-center px-2 py-1.5 cursor-pointer "
+            className={`${location.pathname == "/" && "text-black bg-[#E8E8E8]  rounded-lg"} flex gap-2  items-center px-2 py-1.5 cursor-pointer`}
           >
             <MdOutlineExplore size={16} />
             <p>Feed</p>
           </Link>
-          <div className="flex gap-2  items-center px-2 py-1.5 cursor-pointer">
+          <div className="flex gap-2  items-center px-2 py-1.5 cursor-not-allowed">
             <MdOutlineRestaurantMenu size={16} />
             <p>My Recipes</p>
           </div>
           <Link
             to="/bookmarked"
-            className="flex gap-2  items-center px-2 py-1.5 cursor-pointer"
+            className={`${location.pathname == "/bookmarked" && "text-black bg-[#E8E8E8]  rounded-lg"} flex gap-2  items-center px-2 py-1.5 cursor-pointer`}
           >
             <MdBookmarkBorder size={16} />
             <p>Bookmarks</p>
@@ -68,12 +72,18 @@ const Navigation = () => {
         <div className="mt-10 border-t border-t-[#E8E8E8] pt-5 flex items-center justify-between">
           {/* left */}
           <div className="flex gap-2 items-center">
-            <img src="/User.png" alt="profile image" className="w-8 h-8" />
+            <img
+              src={user.photoURL || "/avatar.jpg"}
+              alt="profile image"
+              className="w-8 h-8 rounded-full"
+            />
             <div>
-              <p className="font-semibold text-[#4A4A4A] text-sm">
-                Maria Garcia
+              <p className="font-semibold text-[#4A4A4A] text-sm capitalize">
+                {user.displayName}
               </p>
-              <p className="text-[#949494] text-xs">@mariacooks</p>
+              <p className="text-[#949494] text-xs">
+                @{user.email?.split("@")[0]}
+              </p>
             </div>
           </div>
 
