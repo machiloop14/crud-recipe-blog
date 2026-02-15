@@ -23,46 +23,65 @@ export const RecipeDetails = () => {
 
   const { handleImageError } = useDefaultImage();
 
-  const docRef = doc(db, "recipe", id);
+  // const docRef = doc(db, "recipe", id);
 
-  const fetchRecipeDetails = async () => {
-    try {
-      setIsLoading(true);
-      const docSnap = await getDoc(docRef);
+  // const fetchRecipeDetails = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const recipeData = docSnap.data() as Recipe;
-        setRecipeDetails({
-          ...recipeData,
-          id: docSnap.id, // Include the document ID in the recipe details
-        });
-      } else {
-        console.error("Document does not exist!");
-      }
-    } catch (error: any) {
-      console.error("Error fetching recipe details:", error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     if (docSnap.exists()) {
+  //       const recipeData = docSnap.data() as Recipe;
+  //       setRecipeDetails({
+  //         ...recipeData,
+  //         id: docSnap.id, // Include the document ID in the recipe details
+  //       });
+  //     } else {
+  //       console.error("Document does not exist!");
+  //     }
+  //   } catch (error: any) {
+  //     console.error("Error fetching recipe details:", error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchRecipeDetails();
+  // }, [id]);
 
   useEffect(() => {
+    if (!id) return;
+
+    const fetchRecipeDetails = async () => {
+      try {
+        setIsLoading(true);
+        const docRef = doc(db, "recipe", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const recipeData = docSnap.data() as Recipe;
+          setRecipeDetails({
+            ...recipeData,
+            id: docSnap.id,
+          });
+        }
+      } catch (error: any) {
+        console.error("Error fetching recipe details:", error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchRecipeDetails();
   }, [id]);
 
-  //convert the timestamp to a date format
-  // const day = recipeDetails?.createdAt
-  //   .toDate()
-  //   .getDate()
-  //   .toString()
-  //   .padStart(2, "0");
-  // const month = (recipeDetails?.createdAt.toDate().getMonth() + 1)
-  //   .toString()
-  //   .padStart(2, "0");
-  // const year = recipeDetails?.createdAt.toDate().getFullYear();
-  // const createdAtFormatted = `${day}/${month}/${year}`;
-
-  const createdAtFormatted = useConvertTimestamp(recipeDetails?.createdAt);
+  // const createdAtFormatted = useConvertTimestamp(
+  //   recipeDetails?.createdAt as any
+  // );
+  const createdAtFormatted = useConvertTimestamp(
+    recipeDetails?.createdAt ?? null
+  );
 
   console.log(recipeDetails);
 

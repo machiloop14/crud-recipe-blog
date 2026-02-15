@@ -27,6 +27,7 @@ const EditRecipe = () => {
   //   }, []);
 
   const fetchRecipeDetails = async () => {
+    if (!id) return;
     const docSnap = await getDoc(doc(db, "recipe", id));
 
     if (docSnap.exists()) {

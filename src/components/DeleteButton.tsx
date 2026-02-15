@@ -30,7 +30,7 @@ export const DeleteButton = ({ recipe }: Props) => {
     // ...
     const deleteRecipe = async () => {
       try {
-        const docSnap = await deleteDoc(docRef);
+        await deleteDoc(docRef);
 
         notify("Deleted successfuly", { type: "success" });
         navigate("/");
