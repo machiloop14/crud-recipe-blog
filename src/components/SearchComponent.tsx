@@ -1,6 +1,4 @@
 import { useState } from "react";
-import searchImage from "../assets/images/search.png";
-import { MdSearch } from "react-icons/md";
 import { LuSearch } from "react-icons/lu";
 
 interface Props {

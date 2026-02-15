@@ -3,7 +3,7 @@ import { toast, ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const useNotification = () => {
-  const [notificationConfig, setNotificationConfig] = useState<ToastOptions>({
+  const [notificationConfig] = useState<ToastOptions>({
     position: "top-center",
     autoClose: 1500,
     hideProgressBar: true,

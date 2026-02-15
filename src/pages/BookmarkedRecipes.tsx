@@ -4,11 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../config/firebase";
 import { Recipe as IRecipe } from "../pages/AllRecipes";
 import { RecipeItem } from "../components/RecipeItem";
-import Login from "./Login";
-import { SearchComponent } from "../components/SearchComponent";
-import { LuBell } from "react-icons/lu";
 import Header from "../components/Header";
-import { BsExclamationTriangleFill } from "react-icons/bs";
 import LoginPrompt from "../components/LoginPrompt";
 
 export const BookmarkedRecipes = () => {

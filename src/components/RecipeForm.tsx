@@ -13,7 +13,6 @@ import {
 import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
-import Login from "../pages/Login";
 import useNotification from "../customHooks/useNotification";
 import { useContext, useEffect } from "react";
 import { AppContext, AppContextProps } from "../App";

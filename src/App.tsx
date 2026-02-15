@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./components/Navbar.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.tsx";
 import AllRecipes from "./pages/AllRecipes.tsx";
@@ -11,19 +10,6 @@ import { ToastContainer } from "react-toastify";
 import { useState, createContext } from "react";
 import { BookmarkedRecipes } from "./pages/BookmarkedRecipes.tsx";
 import Navigation from "./components/Navigation.tsx";
-import { SearchComponent } from "./components/SearchComponent.tsx";
-import { SortComponent } from "./components/SortComponent.tsx";
-import { FaSearch } from "react-icons/fa";
-import {
-  MdAlarm,
-  MdFilter,
-  MdFilter1,
-  MdNotifications,
-  MdOutlineNotifications,
-  MdOutlineSort,
-} from "react-icons/md";
-import { LuBell } from "react-icons/lu";
-import Header from "./components/Header.tsx";
 
 // require("dotenv").config();
 

@@ -3,8 +3,6 @@ import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
 import { RecipeItem } from "../components/RecipeItem";
 import { SortComponent } from "../components/SortComponent";
-import { SearchComponent } from "../components/SearchComponent";
-import { LuBell } from "react-icons/lu";
 import Header from "../components/Header";
 
 export interface Recipe {

@@ -1,8 +1,7 @@
-import * as MdIcons from "react-icons/md";
 import { Recipe as IRecipe } from "../pages/AllRecipes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../config/firebase";
-import { doc, deleteDoc, getDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import useNotification from "../customHooks/useNotification";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

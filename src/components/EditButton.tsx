@@ -1,7 +1,6 @@
 // import * as FaIcons from "react-icons/fa";
 import { useContext } from "react";
 import { AppContext, AppContextProps } from "../App";
-import { MdEdit, MdModeEditOutline, MdOutlineEdit } from "react-icons/md";
 import { LuPencil } from "react-icons/lu";
 
 export const EditButton = () => {

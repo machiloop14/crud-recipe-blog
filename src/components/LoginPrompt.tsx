@@ -1,4 +1,3 @@
-import React from "react";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 

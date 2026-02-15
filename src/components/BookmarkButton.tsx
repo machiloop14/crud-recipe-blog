@@ -1,11 +1,9 @@
-import * as MdIcons from "react-icons/md";
 import { Recipe as IRecipe } from "../pages/AllRecipes";
 import {
   addDoc,
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   query,
   serverTimestamp,

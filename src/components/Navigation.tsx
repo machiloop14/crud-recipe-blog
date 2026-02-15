@@ -4,7 +4,6 @@ import {
   MdBookmarkBorder,
   MdOutlineExplore,
   MdOutlineRestaurantMenu,
-  MdMoreVert,
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";

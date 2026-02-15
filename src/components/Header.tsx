@@ -1,7 +1,4 @@
-import React from "react";
 import { SearchComponent } from "./SearchComponent";
-import { LuBell, LuLogIn } from "react-icons/lu";
-import { Link } from "react-router-dom";
 
 interface Props {
   handleSearch: (params: string) => void;
