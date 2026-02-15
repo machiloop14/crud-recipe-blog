@@ -60,7 +60,7 @@ export const RecipeItem = (props: Props) => {
         <div className="py-4 flex flex-col  ">
           {/* <div className="row-1 flex justify-between items-center  gap-2"> */}
           <Link
-            to={`recipe/${recipe.id}`}
+            to={`/recipe/${recipe.id}`}
             className="text-lg font-semibold mb-2 text-black capitalize "
           >
             {recipe.title}

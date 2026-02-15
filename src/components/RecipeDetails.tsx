@@ -143,7 +143,7 @@ export const RecipeDetails = () => {
             <p className="text-sm">{recipeDetails?.description}</p>
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex gap-6 mt-4">
             {/* ingredients */}
             <div className="mt-0 bg-[#FBFAF9] px-4 py-4 basis-2/5 rounded-xl ">
               <div className="flex gap-1.5 items-center mb-4">
@@ -166,9 +166,9 @@ export const RecipeDetails = () => {
                 <MdFormatListNumbered size={18} color="#ff5b27" />
                 <p className="text-lg text-black font-bold">Instructions</p>
               </div>
-              <div className="flex gap-2 flex-col">
-                <div className="whitespace-pre-line flex gap-1.5 items-center">
-                  <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] w-6 h-6">
+              <div className="flex gap-4 flex-col">
+                <div className=" flex gap-1.5 items-start ">
+                  <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] px-2.5 py-1">
                     <p className="font-bold text-[#ff5b27] text-sm ">1</p>
                   </div>
                   <p className="capitalize text-black text-sm ">
@@ -181,11 +181,8 @@ export const RecipeDetails = () => {
                   //   <span>{instruction.addedInstruction}</span>
                   // </p>
 
-                  <div
-                    className="whitespace-pre-line flex gap-1.5  items-center"
-                    key={index}
-                  >
-                    <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] w-6 h-6">
+                  <div className=" flex gap-1.5  items-start" key={index}>
+                    <div className="flex items-center rounded-lg justify-center bg-[#FFDED4] px-2.5 py-1">
                       <p className="font-bold text-[#ff5b27] text-sm ">
                         {index + 2}
                       </p>

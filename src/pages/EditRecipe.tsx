@@ -1,12 +1,12 @@
 import { RecipeForm } from "../components/RecipeForm";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../config/firebase";
-import Login from "./Login";
 import { useParams } from "react-router-dom";
 import { Recipe } from "./AllRecipes";
 import { doc, getDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { AppContextProps, AppContext } from "../App";
+import LoginPrompt from "../components/LoginPrompt";
 
 const EditRecipe = () => {
   const { setIsEditing } = useContext<AppContextProps>(AppContext);
@@ -46,7 +46,7 @@ const EditRecipe = () => {
       {user && recipeUserId && user?.uid === recipeUserId ? (
         <RecipeForm />
       ) : (
-        <Login warningMessage="Only original author can edit a recipe" />
+        <LoginPrompt message="Only original author can edit a recipe" />
       )}
     </div>
   );
