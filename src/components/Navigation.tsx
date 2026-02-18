@@ -2,6 +2,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import {
   MdAddCircleOutline,
   MdBookmarkBorder,
+  MdClose,
   MdOutlineExplore,
   MdOutlineRestaurantMenu,
 } from "react-icons/md";
@@ -12,7 +13,15 @@ import { signOut } from "firebase/auth";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { useLocation } from "react-router-dom";
 
-const Navigation = () => {
+interface navigationProps {
+  navigationVisible: boolean;
+  setNavigationVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navigation = ({
+  navigationVisible,
+  setNavigationVisible,
+}: navigationProps) => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,14 +37,30 @@ const Navigation = () => {
     notify("Logout successful", { type: "success" });
   };
 
+  location.pathname == "/login" && setNavigationVisible(false);
+
   return (
-    <div className="px-6 py-6 w-56 border-r border-[#E8E8E8] fixed left-0  top-0 flex flex-col justify-between h-full">
+    <div
+      className={`px-6 py-6 w-56 border-r border-[#E8E8E8] fixed left-0  top-0 flex flex-col justify-between h-full
+
+        
+        ${navigationVisible ? "max-md:flex max-md:left-auto max-md:right-0 bg-white z-10" : "max-md:hidden"}
+    
+    `}
+    >
       <div>
-        <div className="logo flex items-center gap-2">
-          <div className="bg-[#FF5B27] px-1 py-1 rounded-md">
-            <img src="/Vector.png" alt="torque icon" className="w-3 h-3" />
+        <div className="flex items-center justify-between">
+          <div className="logo flex items-center gap-2">
+            <div className="bg-[#FF5B27] px-1 py-1 rounded-md">
+              <img src="/Vector.png" alt="torque icon" className="w-3 h-3" />
+            </div>
+            <p className="font-bold text-xl">Curlinara</p>
           </div>
-          <p className="font-bold text-xl">Curlinara</p>
+          <MdClose
+            size={20}
+            className="cursor-pointer md:hidden"
+            onClick={() => setNavigationVisible(false)}
+          />
         </div>
         <Link
           to="/add-recipe"

@@ -23,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div className="absolute w-screen h-screen left-0 ">
+    <div className="absolute w-screen h-screen left-0">
       <div className="flex gap-4 items-center mr-2">
         {/* image */}
         <div className="basis-1/2 ">
