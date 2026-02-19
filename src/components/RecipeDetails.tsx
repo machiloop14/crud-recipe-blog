@@ -125,7 +125,7 @@ export const RecipeDetails = () => {
               </div>
             </div>
             <div>
-              <p className="font-extrabold text-3xl text-black capitalize">
+              <p className="font-extrabold text-xl sm:text-2xl lg:text-3xl text-black capitalize">
                 {recipeDetails?.title}
               </p>
             </div>
@@ -162,7 +162,7 @@ export const RecipeDetails = () => {
             <p className="text-sm">{recipeDetails?.description}</p>
           </div>
 
-          <div className="flex gap-6 mt-4">
+          <div className="flex gap-6 mt-4 flex-col lg:flex-row">
             {/* ingredients */}
             <div className="mt-0 bg-[#FBFAF9] px-4 py-4 basis-2/5 rounded-xl ">
               <div className="flex gap-1.5 items-center mb-4">
