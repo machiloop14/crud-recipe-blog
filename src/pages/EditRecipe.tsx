@@ -42,7 +42,7 @@ const EditRecipe = () => {
   }, [id]);
 
   return (
-    <div className="mx-auto w-3/4 pt-8">
+    <div className="md:mx-auto md:w-3/4 md:px-0 px-6 pt-8">
       <h1 className="text-2xl font-bold text-black mb-4">Edit Recipe</h1>
       {user && recipeUserId && user?.uid === recipeUserId ? (
         <RecipeForm />
