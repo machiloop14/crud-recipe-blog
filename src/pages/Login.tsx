@@ -23,10 +23,10 @@ const Login = () => {
   };
 
   return (
-    <div className="absolute w-screen h-screen left-0">
-      <div className="flex gap-4 items-center mr-2">
+    <div className="absolute w-screen h-screen left-0 z-30">
+      <div className="flex gap-4 items-center mr-2 max-md:h-full">
         {/* image */}
-        <div className="basis-1/2 ">
+        <div className="basis-1/2 hidden md:block">
           <img
             src="/login1.jpg"
             alt="chef cooking in kitchen"
@@ -34,7 +34,7 @@ const Login = () => {
           />
         </div>
         {/* login interface */}
-        <div className="basis-1/2 mx-auto max-w-96 flex flex-col gap-10">
+        <div className="md:basis-1/2 md:px-0 px-6 mx-auto max-w-96 flex flex-col gap-10">
           <div className="logo flex items-center gap-2">
             <div className="bg-[#FF5B27] px-1 py-1 rounded-md">
               <img src="/Vector.png" alt="torque icon" className="w-3 h-3" />
@@ -66,7 +66,7 @@ const Login = () => {
               </button>
             </div>
             <p className="text-sm text-[#949494]">
-              By clicking contine, you agree to our{" "}
+              By clicking continue, you agree to our{" "}
               <span className="underline text-bold text-black">
                 Terms of Service
               </span>{" "}

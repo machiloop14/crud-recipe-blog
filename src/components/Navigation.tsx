@@ -12,6 +12,7 @@ import useNotification from "../customHooks/useNotification";
 import { signOut } from "firebase/auth";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 interface navigationProps {
   navigationVisible: boolean;
@@ -37,14 +38,21 @@ const Navigation = ({
     notify("Logout successful", { type: "success" });
   };
 
-  location.pathname == "/login" && setNavigationVisible(false);
+  const handleLoginNav = () => {
+    // location.pathname == "/login" && setNavigationVisible(false);
+    setNavigationVisible(false);
+  };
+
+  useEffect(() => {
+    handleLoginNav();
+  }, [location.pathname]);
 
   return (
     <div
       className={`px-6 py-6 w-56 border-r border-[#E8E8E8] fixed left-0  top-0 flex flex-col justify-between h-full
 
-        
         ${navigationVisible ? "max-md:flex max-md:left-auto max-md:right-0 bg-white z-10" : "max-md:hidden"}
+        ${location.pathname == "/login" && "hidden"}
     
     `}
     >
