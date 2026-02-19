@@ -8,7 +8,7 @@ interface Props {
 const Header = ({ handleSearch, placeholder }: Props) => {
   return (
     <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center px-6">
-      <div className="w-72">
+      <div className="w-72 max-sm:w-4/5">
         <SearchComponent onSearch={handleSearch} placeholder={placeholder} />
       </div>
       {/* <div>

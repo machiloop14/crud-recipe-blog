@@ -65,7 +65,7 @@ const AllRecipes = () => {
       <Header handleSearch={handleSearch} placeholder="search recipes..." />
 
       <div className="mt-6 px-6">
-        <div className="flex justify-between mb-8 items-center">
+        <div className="flex justify-between mb-8 items-center max-sm:flex-col max-sm:items-start max-sm:gap-3">
           <div className="flex flex-col gap-2">
             <p className="text-2xl font-bold text-black ">Discover Recipes</p>
             <p className="text-sm text-[#949494] ">
@@ -76,7 +76,7 @@ const AllRecipes = () => {
             <SortComponent onSort={handleSort} />
           </div>
         </div>
-        <div className="grid grid-cols-3  gap-6 gridss mb-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3  gap-6 gridss mb-6">
           {filteredRecipes?.map((recipe) => (
             <RecipeItem key={recipe.id} recipe={recipe} />
           ))}
