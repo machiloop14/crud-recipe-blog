@@ -131,7 +131,7 @@ export const BookmarkedRecipes = () => {
       {user ? (
         <>
           {recipesToShow && recipesToShow?.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6 gridss mb-6 px-6">
+            <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6 gridss mb-6 px-6">
               {recipesToShow?.map((recipe) => (
                 <RecipeItem key={recipe.id} recipe={recipe} />
               ))}
