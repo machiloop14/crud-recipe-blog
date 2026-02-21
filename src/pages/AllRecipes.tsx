@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { RecipeItem } from "../components/RecipeItem";
 import { SortComponent } from "../components/SortComponent";
 import Header from "../components/Header";
+import { PacmanLoader } from "react-spinners";
 
 export interface Recipe {
   title: string;
@@ -25,20 +26,28 @@ const AllRecipes = () => {
   const [recipesList, setRecipesList] = useState<Recipe[] | null>(null);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[] | null>(null);
   const [sortOption, setSortOption] = useState("createdAt");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const sortOrder = sortOption == "createdAt" ? "desc" : "asc";
 
   const recipesRef = collection(db, "recipe");
   const orderedQuery = query(recipesRef, orderBy(`${sortOption}`, sortOrder));
 
   const getRecipes = async () => {
-    const data = await getDocs(orderedQuery);
-    console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    setRecipesList(
-      data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
-    );
-    setFilteredRecipes(
-      data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
-    );
+    try {
+      setIsLoading(true);
+      const data = await getDocs(orderedQuery);
+      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setRecipesList(
+        data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
+      );
+      setFilteredRecipes(
+        data.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Recipe[]
+      );
+    } catch (error: any) {
+      console.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -77,9 +86,17 @@ const AllRecipes = () => {
           </div>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3  gap-6 gridss mb-6">
-          {filteredRecipes?.map((recipe) => (
-            <RecipeItem key={recipe.id} recipe={recipe} />
-          ))}
+          {isLoading ? (
+            <div className="absolute top-2/3 left-2/4 flex flex-col items-center gap-6 justify-center -translate-x-2/4 -translate-y-2/4">
+              {/* <GridLoader color="rgb(107, 114, 128)" loading={isLoading} /> */}
+              <PacmanLoader color="#ff5b27" loading={isLoading} />
+              <p className="text-2xl">Loading...</p>
+            </div>
+          ) : (
+            filteredRecipes?.map((recipe) => (
+              <RecipeItem key={recipe.id} recipe={recipe} />
+            ))
+          )}
         </div>
       </div>
     </div>

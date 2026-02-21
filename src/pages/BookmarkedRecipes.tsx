@@ -6,6 +6,7 @@ import { Recipe as IRecipe } from "../pages/AllRecipes";
 import { RecipeItem } from "../components/RecipeItem";
 import Header from "../components/Header";
 import LoginPrompt from "../components/LoginPrompt";
+import { PacmanLoader } from "react-spinners";
 
 export const BookmarkedRecipes = () => {
   const [userBookmarks, setUserBookmarks] = useState<string[] | null>(null);
@@ -13,11 +14,13 @@ export const BookmarkedRecipes = () => {
   const [filteredRecipes, setFilteredRecipes] = useState<IRecipe[] | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [user] = useAuthState(auth);
 
   const fetchUserBookmarks = async () => {
     try {
+      setIsLoading(true);
       if (user && user.uid) {
         // Check if user and user.uid are not undefined
         const userQuery = query(
@@ -35,6 +38,7 @@ export const BookmarkedRecipes = () => {
     } catch (error: any) {
       console.error(error.message);
     } finally {
+      setIsLoading(false);
       console.log(userBookmarks);
     }
   };
@@ -111,17 +115,6 @@ export const BookmarkedRecipes = () => {
         placeholder="search your bookmarks..."
       />
 
-      {/* <div className="flex justify-between basis-auto border-b border-b-[#E8E8E8] py-4 items-center">
-        <div className="w-72">
-          <SearchComponent
-            onSearch={handleSearch}
-            placeholder="search your bookmarks..."
-          />
-        </div>
-        <div>
-          <LuBell size={18} color="#949494" />
-        </div>
-      </div> */}
       <div className="mt-6 mb-8 flex flex-col gap-2 px-6">
         <p className="text-2xl font-bold text-black ">Saved Recipes</p>
         <p className="text-sm text-[#949494] ">
@@ -130,7 +123,13 @@ export const BookmarkedRecipes = () => {
       </div>
       {user ? (
         <>
-          {recipesToShow && recipesToShow?.length > 0 ? (
+          {isLoading ? (
+            <div className="absolute top-2/3 left-2/4 flex flex-col items-center gap-6 justify-center -translate-x-2/4 -translate-y-2/4">
+              {/* <GridLoader color="rgb(107, 114, 128)" loading={isLoading} /> */}
+              <PacmanLoader color="#ff5b27" loading={isLoading} />
+              <p className="text-2xl">Loading...</p>
+            </div>
+          ) : recipesToShow && recipesToShow?.length > 0 ? (
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-6 gridss mb-6 px-6">
               {recipesToShow?.map((recipe) => (
                 <RecipeItem key={recipe.id} recipe={recipe} />

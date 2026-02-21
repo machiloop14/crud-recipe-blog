@@ -32,6 +32,7 @@ export const RecipeItem = (props: Props) => {
           alt={recipe.title}
           className="w-full h-40 object-cover "
           onError={handleImageError}
+          loading="lazy"
         />
         <div className="flex gap-1 absolute  top-4 right-2">
           {user && user?.uid == recipe?.userId && (

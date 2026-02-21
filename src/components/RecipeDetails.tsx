@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Recipe } from "../pages/AllRecipes";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-import PropagateLoader from "react-spinners/PropagateLoader";
 import { BookmarkButton } from "./BookmarkButton";
 import { EditButton } from "./EditButton";
 import { DeleteButton } from "./DeleteButton";
@@ -12,6 +11,7 @@ import { useDefaultImage } from "../customHooks/useDefaultImage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { LuShoppingBasket } from "react-icons/lu";
 import { MdCircle, MdFormatListNumbered } from "react-icons/md";
+import { PacmanLoader } from "react-spinners";
 
 export const RecipeDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,33 +22,6 @@ export const RecipeDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleImageError } = useDefaultImage();
-
-  // const docRef = doc(db, "recipe", id);
-
-  // const fetchRecipeDetails = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const docSnap = await getDoc(docRef);
-
-  //     if (docSnap.exists()) {
-  //       const recipeData = docSnap.data() as Recipe;
-  //       setRecipeDetails({
-  //         ...recipeData,
-  //         id: docSnap.id, // Include the document ID in the recipe details
-  //       });
-  //     } else {
-  //       console.error("Document does not exist!");
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Error fetching recipe details:", error.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchRecipeDetails();
-  // }, [id]);
 
   useEffect(() => {
     if (!id) return;
@@ -89,7 +62,7 @@ export const RecipeDetails = () => {
     <div>
       {isLoading ? (
         <div className="absolute top-2/4 left-2/4 flex flex-col items-center gap-6 justify-center -translate-x-2/4 -translate-y-2/4">
-          <PropagateLoader color="rgb(107, 114, 128)" loading={isLoading} />
+          <PacmanLoader color="#ff5b27" loading={isLoading} />
           <p className="text-2xl">Loading...</p>
         </div>
       ) : (
@@ -155,6 +128,7 @@ export const RecipeDetails = () => {
               alt={recipeDetails?.title}
               className="w-full h-80 object-cover rounded-lg"
               onError={handleImageError}
+              loading="lazy"
             />
           </div>
 
